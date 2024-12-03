@@ -1,35 +1,18 @@
-'use client';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+"use client";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function Dashboard() {
-  const [videoUrlInput, setVideoUrlInput] = useState('');
-  const [videoUrl, setVideoUrl] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
-  const fetchVideoUrl = async () => {
-    if (!videoUrlInput) {
-      console.error('Video URL input is empty');
+  const handleSubmit = () => {
+    if (!inputValue) {
+      console.error("Input is empty");
       return;
     }
 
-    // Extract the key from the S3 URL
-    const url = new URL(videoUrlInput);
-    let key = url.pathname.startsWith('/') ? url.pathname.substring(1) : url.pathname;
-
-    // Ensure key does not have leading slashes
-    key = key.replace(/^\/+/, '');
-
-    try {
-      const response = await fetch(`/api/get-signed-url?key=${encodeURIComponent(key)}`);
-      if (!response.ok) {
-        throw new Error('Error fetching video URL');
-      }
-      const data = await response.json();
-      console.log('Fetched video URL:', data.url); // Log the fetched URL
-      setVideoUrl(data.url);
-    } catch (error) {
-      console.error('Failed to fetch video URL', error);
-    }
+    // Your logic here, you can replace this with your desired functionality
+    console.log("Submitted value:", inputValue);
   };
 
   return (
@@ -40,25 +23,19 @@ export default function Dashboard() {
         </div>
       </header>
       <main className="flex-grow pt-20 p-8">
-        <h2 className="text-xl font-semibold">View Video</h2>
+        <h2 className="text-xl font-semibold">Your Form</h2>
         <div className="mt-4">
           <input
             type="text"
-            value={videoUrlInput}
-            onChange={(e) => setVideoUrlInput(e.target.value)}
-            placeholder="Enter S3 video URL"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="Enter some value"
             className="border p-2 mr-2 w-full max-w-md"
           />
-          <Button onClick={fetchVideoUrl} className="w-auto">Fetch Video</Button>
+          <Button onClick={handleSubmit} className="w-auto">
+            Submit
+          </Button>
         </div>
-        {videoUrl && (
-          <div className="mt-4">
-            <video controls className="w-full max-w-md">
-              <source src={videoUrl} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        )}
       </main>
     </div>
   );

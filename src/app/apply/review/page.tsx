@@ -1,11 +1,16 @@
-'use client';
-import React, { useState } from 'react';
-import axios from 'axios';
+"use client";
+import React, { useState } from "react";
+import axios from "axios";
 import { useAddApplyContext } from "@/contexts/applyContext";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
-import { stepOneSchema, guardianFormSchema, studyDetailsSchema, educationFormSchema, uploadFormSchema } from '@/schemas';
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import {
+  stepOneSchema,
+  guardianFormSchema,
+  studyDetailsSchema,
+  educationFormSchema,
+} from "@/schemas";
 
 import {
   AlertDialog,
@@ -20,11 +25,10 @@ import {
 } from "@/components/ui/alert-dialog";
 
 const schemaMap = {
-  'step-one': stepOneSchema,
-  'step-two': guardianFormSchema,
-  'step-three': studyDetailsSchema,
-  'step-four': educationFormSchema,
-  'step-five': uploadFormSchema,
+  "step-one": stepOneSchema,
+  "step-two": guardianFormSchema,
+  "step-three": studyDetailsSchema,
+  "step-four": educationFormSchema,
 };
 
 export default function SummaryPage() {
@@ -48,44 +52,22 @@ export default function SummaryPage() {
     if (missingStep) {
       router.push(`/apply/${missingStep}`);
     } else {
-
       setIsLoading(true);
-      let videoUrl = '';
-
-      const fileUrl = localStorage.getItem('fileUpload');
-      const fileName = localStorage.getItem('fileName');
-      const fileType = localStorage.getItem('fileType');
-
-      if (fileUrl && fileName && fileType) {
-        try {
-          const fileBlob = await fetch(fileUrl).then(res => res.blob());
-          const formData = new FormData();
-          formData.append('file', fileBlob, fileName);
-
-          const videoResponse = await axios.post('/api/uploadVideo', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            },
-            timeout: 60000
-          });
-          videoUrl = videoResponse.data.url;
-        } catch (uploadError) {
-          console.error('Error uploading video to S3:', uploadError);
-          alert('Video upload failed. Proceeding without video.');
-        }
-      }
 
       try {
-        await axios.post('/api/finalSubmit', {
-          ...newApplyData,
-          videoUpload: videoUrl, // Use the successful video URL or an empty string
-        }, { timeout: 60000 });
+        await axios.post(
+          "/api/finalSubmit",
+          {
+            ...newApplyData,
+          },
+          { timeout: 60000 }
+        );
 
         setShowAlert(true);
-        router.push('/submit-confirmation')
+        router.push("/submit-confirmation");
       } catch (error) {
-        console.error('Error during final submit:', error);
-        alert('Failed to submit the application. Please try again.');
+        console.error("Error during final submit:", error);
+        alert("Failed to submit the application. Please try again.");
       } finally {
         setIsLoading(false);
       }
@@ -110,68 +92,74 @@ export default function SummaryPage() {
           <div className="grid gap-4">
             <div>
               <h3 className="font-semibold">Student Details</h3>
-              <p>Name: {newApplyData?.studentName || ''}</p>
-              <p>Surname: {newApplyData?.studentSurname || ''}</p>
-              <p>ID Number: {newApplyData?.studentIdNumber || ''}</p>
-              <p>Email: {newApplyData?.emailAddress || ''}</p>
-              <p>Phone: {newApplyData?.phone || ''}</p>
-              <p>Whatsapp Number: {newApplyData?.whatsapp || ''}</p>
-              <p>Gender: {newApplyData?.studentGender || ''}</p>
-              <p>Address: {newApplyData?.studentAddress || ''}</p>
-              <p>City: {newApplyData?.studentCity || ''}</p>
-              <p>Province: {newApplyData?.studentProvince || ''}</p>
-              <p>Postal Code: {newApplyData?.studentPostalCode || ''}</p>
-              <Button onClick={() => handleEdit('step-one')}>Edit</Button>
+              <p>Name: {newApplyData?.studentName || ""}</p>
+              <p>Surname: {newApplyData?.studentSurname || ""}</p>
+              <p>ID Number: {newApplyData?.studentIdNumber || ""}</p>
+              <p>Email: {newApplyData?.emailAddress || ""}</p>
+              <p>Phone: {newApplyData?.phone || ""}</p>
+              <p>Whatsapp Number: {newApplyData?.whatsapp || ""}</p>
+              <p>Gender: {newApplyData?.studentGender || ""}</p>
+              <p>Address: {newApplyData?.studentAddress || ""}</p>
+              <p>City: {newApplyData?.studentCity || ""}</p>
+              <p>Province: {newApplyData?.studentProvince || ""}</p>
+              <p>Postal Code: {newApplyData?.studentPostalCode || ""}</p>
+              <Button onClick={() => handleEdit("step-one")}>Edit</Button>
             </div>
             <div>
               <h3 className="font-semibold">Guardian Details</h3>
-              <p>Email: {newApplyData?.guardianEmail || ''}</p>
-              <p>Phone: {newApplyData?.guardianPhone || ''}</p>
-              <p>Name: {newApplyData?.guardianName || ''}</p>
-              <p>Surname: {newApplyData?.guardianSurname || ''}</p>
-              <p>Relation: {newApplyData?.guardianRelation || ''}</p>
-              <Button onClick={() => handleEdit('step-two')}>Edit</Button>
+              <p>Email: {newApplyData?.guardianEmail || ""}</p>
+              <p>Phone: {newApplyData?.guardianPhone || ""}</p>
+              <p>Name: {newApplyData?.guardianName || ""}</p>
+              <p>Surname: {newApplyData?.guardianSurname || ""}</p>
+              <p>Relation: {newApplyData?.guardianRelation || ""}</p>
+              <Button onClick={() => handleEdit("step-two")}>Edit</Button>
             </div>
             <div>
               <h3 className="font-semibold">Study Details</h3>
-              <p>Attending School: {newApplyData?.attendingSchool ? "Yes" : "No"}</p>
-              <p>Highest Grade: {newApplyData?.highestGrade || ''}</p>
-              <p>Year Passed: {newApplyData?.passedYear || ''}</p>
-              <p>Subjects: {newApplyData?.subjects || ''}</p>
-              <Button onClick={() => handleEdit('step-three')}>Edit</Button>
+              <p>
+                Attending School: {newApplyData?.attendingSchool ? "Yes" : "No"}
+              </p>
+              <p>Highest Grade: {newApplyData?.highestGrade || ""}</p>
+              <p>Year Passed: {newApplyData?.passedYear || ""}</p>
+              <p>Subjects: {newApplyData?.subjects || ""}</p>
+              <Button onClick={() => handleEdit("step-three")}>Edit</Button>
             </div>
             <div>
               <h3 className="font-semibold">Course and Campus</h3>
-              <p>Choice of Course: {newApplyData?.choiceOfCourse || ''}</p>
-              <p>Campus Choice: {newApplyData?.campusChoice || ''}</p>
-              <p>Intake: {newApplyData?.intake || ''}</p>
-              <p>Need Accommodation: {newApplyData?.needAccommodation ? "Yes" : "No"}</p>
-              <p>Accommodation Option: {newApplyData?.accommodationOption || ''}</p>
-              <Button onClick={() => handleEdit('step-four')}>Edit</Button>
-            </div>
-            <div>
-              <h3 className="font-semibold">Uploads</h3>
-              <p>Video Upload: {newApplyData?.fileName ? "Yes" : "No"}</p>
-              <Button onClick={() => handleEdit('step-five')}>Edit</Button>
+              <p>Choice of Course: {newApplyData?.choiceOfCourse || ""}</p>
+              <p>Campus Choice: {newApplyData?.campusChoice || ""}</p>
+              <p>Intake: {newApplyData?.intake || ""}</p>
+              <p>
+                Need Accommodation:{" "}
+                {newApplyData?.needAccommodation ? "Yes" : "No"}
+              </p>
+              <p>
+                Accommodation Option: {newApplyData?.accommodationOption || ""}
+              </p>
+              <Button onClick={() => handleEdit("step-four")}>Edit</Button>
             </div>
           </div>
           <div className="mt-4">
-          <AlertDialog>
+            <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button disabled={isLoading}>
-                  {isLoading ? 'Submitting...' : 'Submit'}
+                  {isLoading ? "Submitting..." : "Submit"}
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Are you sure you want to submit?</AlertDialogTitle>
+                  <AlertDialogTitle>
+                    Are you sure you want to submit?
+                  </AlertDialogTitle>
                   <AlertDialogDescription>
                     Please review all your information before submitting.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleFinalSubmit}>Submit</AlertDialogAction>
+                  <AlertDialogAction onClick={handleFinalSubmit}>
+                    Submit
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
@@ -181,4 +169,3 @@ export default function SummaryPage() {
     </main>
   );
 }
- 

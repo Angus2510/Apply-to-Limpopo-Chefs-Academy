@@ -1,42 +1,50 @@
-import z from 'zod';
+import z from "zod";
 
 export const stepOneSchema = z.object({
-  emailAddress: z.string().email().min(1, 'Email address is required'),
-  studentName: z.string().min(1, 'Name is required'),
-  studentSurname: z.string().min(1, 'Surname is required'),
-  phone: z.string().min(1, 'Phone number is required').refine((value) => value.length > 0, {
-    message: "Invalid phone number",
-  }),
+  emailAddress: z.string().email().min(1, "Email address is required"),
+  studentName: z.string().min(1, "Name is required"),
+  studentSurname: z.string().min(1, "Surname is required"),
+  phone: z
+    .string()
+    .min(1, "Phone number is required")
+    .refine((value) => value.length > 0, {
+      message: "Invalid phone number",
+    }),
   whatsapp: z.string().optional(),
-  studentIdNumber: z.string().min(1, 'ID number is required'),
+  studentIdNumber: z.string().min(1, "ID number is required"),
   studentGender: z.enum(["Male", "Female", "Other"]),
-  studentAddress: z.string().min(1, 'Address is required'),
-  studentCity: z.string().min(1, 'City is required'),
-  studentProvince: z.string().min(1, 'Province is required'),
-  studentPostalCode: z.string().min(1, 'Postal code is required'),
+  studentAddress: z.string().min(1, "Address is required"),
+  studentCity: z.string().min(1, "City is required"),
+  studentProvince: z.string().min(1, "Province is required"),
+  studentPostalCode: z.string().min(1, "Postal code is required"),
 });
 
 export const guardianFormSchema = z.object({
-  guardianEmail: z.string().email().min(1, 'Guardian email is required'),
-  guardianPhone: z.string().min(1, 'Guardian phone number is required').refine((value) => value.length > 0, {
-    message: "Invalid phone number",
-  }),
-  guardianName: z.string().min(1, 'Please enter a guardian name.'),
-  guardianSurname: z.string().min(1, 'Please enter a guardian surname.'),
+  guardianEmail: z.string().email().min(1, "Guardian email is required"),
+  guardianPhone: z
+    .string()
+    .min(1, "Guardian phone number is required")
+    .refine((value) => value.length > 0, {
+      message: "Invalid phone number",
+    }),
+  guardianName: z.string().min(1, "Please enter a guardian name."),
+  guardianSurname: z.string().min(1, "Please enter a guardian surname."),
   guardianRelation: z.enum(["Mother", "Father", "Other"]),
 });
 
 export const studyDetailsSchema = z.object({
-  choiceOfCourse: z.enum([
-    "Award: Introduction to the Hospitality Industry & Cooking - 06 Months",
-    "Certificate: Professional Cookery and the Principles of Hospitality - 10 Months",
-    "Diploma: Food Preparation and Culinary Arts - 10 Months",
-    "Pastry Diploma: Professional Patisserie - 10 Months",
-    "Mauritius Exchange Program Diploma: Advanced Food Preparation & Culinary Arts - 12 Months",
-    "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
-    "Online Award: Introduction to the Hospitality Industry & Cooking - 08 Months",
-    "Online Certificate: Professional Cookery and the Principles of Hospitality - 12 Months",
-    ]).optional(),
+  choiceOfCourse: z
+    .enum([
+      "Award: Introduction to the Hospitality Industry & Cooking - 06 Months",
+      "Certificate: Professional Cookery and the Principles of Hospitality - 10 Months",
+      "Diploma: Food Preparation and Culinary Arts - 10 Months",
+      "Pastry Diploma: Professional Patisserie - 10 Months",
+      "Mauritius Exchange Program Diploma: Advanced Food Preparation & Culinary Arts - 12 Months",
+      "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
+      "Online Award: Introduction to the Hospitality Industry & Cooking - 08 Months",
+      "Online Certificate: Professional Cookery and the Principles of Hospitality - 12 Months",
+    ])
+    .optional(),
   campusChoice: z.enum(["Mokopane", "Polokwane"]),
   intake: z.enum(["January", "July"]),
   needAccommodation: z.boolean().optional(),
@@ -51,8 +59,8 @@ export const educationFormSchema = z.object({
 });
 
 export const uploadFormSchema = z.object({
-  fileName: z.string().min(1, 'File name is required'),
-  fileType: z.string().min(1, 'File type is required'),
+  fileName: z.string().min(1, "File name is required"),
+  fileType: z.string().min(1, "File type is required"),
 });
 
 export const newApplyInitialValuesSchema = z.object({
@@ -77,24 +85,27 @@ export const newApplyInitialValuesSchema = z.object({
   passedYear: z.string().optional(),
   subjects: z.string().optional(),
 
-  choiceOfCourse: z.enum([
-    "Award: Introduction to the Hospitality Industry & Cooking - 06 Months",
-    "Certificate: Professional Cookery and the Principles of Hospitality - 10 Months",
-    "Diploma: Food Preparation and Culinary Arts - 10 Months",
-    "Pastry Diploma: Professional Patisserie - 10 Months",
-    "Mauritius Exchange Program Diploma: Advanced Food Preparation & Culinary Arts - 12 Months",
-    "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
-    "Online Award: Introduction to the Hospitality Industry & Cooking - 08 Months",
-    "Online Certificate: Professional Cookery and the Principles of Hospitality - 12 Months",
-    ]).optional(),
+  choiceOfCourse: z
+    .enum([
+      "Award: Introduction to the Hospitality Industry & Cooking - 06 Months",
+      "Certificate: Professional Cookery and the Principles of Hospitality - 10 Months",
+      "Diploma: Food Preparation and Culinary Arts - 10 Months",
+      "Pastry Diploma: Professional Patisserie - 10 Months",
+      "Mauritius Exchange Program Diploma: Advanced Food Preparation & Culinary Arts - 12 Months",
+      "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
+      "Online Award: Introduction to the Hospitality Industry & Cooking - 08 Months",
+      "Online Certificate: Professional Cookery and the Principles of Hospitality - 12 Months",
+    ])
+    .optional(),
   campusChoice: z.enum(["Mokopane", "Polokwane"]).optional(),
   intake: z.enum(["January", "July"]).optional(),
   needAccommodation: z.boolean().optional(),
   accommodationOption: z.string().optional(),
 
-  videoUpload: z.string().optional(),
   fileName: z.string().optional(),
   fileType: z.string().optional(),
 });
 
-export type NewApplyInitialValuesType = z.infer<typeof newApplyInitialValuesSchema>;
+export type NewApplyInitialValuesType = z.infer<
+  typeof newApplyInitialValuesSchema
+>;
