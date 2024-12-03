@@ -38,6 +38,7 @@ const defaultApply: NewApplyInitialValuesType = {
   intake: "January",
   needAccommodation: false,
   accommodationOption: "",
+  accommodation: "",
   fileName: "",
   fileType: "",
 };

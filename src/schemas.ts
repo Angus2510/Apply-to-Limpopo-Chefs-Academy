@@ -101,6 +101,7 @@ export const newApplyInitialValuesSchema = z.object({
   intake: z.enum(["January", "July"]).optional(),
   needAccommodation: z.boolean().optional(),
   accommodationOption: z.string().optional(),
+  accommodation: z.string().optional(),
 
   fileName: z.string().optional(),
   fileType: z.string().optional(),
