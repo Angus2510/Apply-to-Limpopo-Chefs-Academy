@@ -77,7 +77,7 @@ export default function SummaryPage() {
   const handleEdit = (step: string) => {
     router.push(`/apply/${step}`);
   };
-
+  console.log(newApplyData);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <Card className="w-full max-w-3xl mx-auto mt-4">
@@ -124,6 +124,7 @@ export default function SummaryPage() {
               <p>Subjects: {newApplyData?.subjects || ""}</p>
               <Button onClick={() => handleEdit("step-three")}>Edit</Button>
             </div>
+
             <div>
               <h3 className="font-semibold">Course and Campus</h3>
               <p>Choice of Course: {newApplyData?.choiceOfCourse || ""}</p>
@@ -133,9 +134,15 @@ export default function SummaryPage() {
                 Need Accommodation:{" "}
                 {newApplyData?.needAccommodation ? "Yes" : "No"}
               </p>
-              <p>
-                Accommodation Option: {newApplyData?.accommodationOption || ""}
-              </p>
+              {newApplyData?.needAccommodation && (
+                <div>
+                  <p>
+                    Accommodation Option:{" "}
+                    {newApplyData?.accommodation || "Not selected"}
+                  </p>
+                  {/* Ensure that you display the accommodation choice if it's available */}
+                </div>
+              )}
               <Button onClick={() => handleEdit("step-four")}>Edit</Button>
             </div>
           </div>

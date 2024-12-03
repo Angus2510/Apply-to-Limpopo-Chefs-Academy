@@ -75,8 +75,8 @@ export default function StudyDetailsForm() {
 
   const handleSubmit = (values: NewApplyInitialValuesType) => {
     updateNewApplyDetails(values);
-    // Directly navigate to the next page instead of step-five
-    router.push("/apply/step-four");
+    // Navigate to the review page
+    router.push("/apply/review");
   };
 
   const selectedCampus = form.watch("campusChoice");
@@ -245,6 +245,7 @@ export default function StudyDetailsForm() {
                           </FormControl>
                           <FormLabel className="font-normal">January</FormLabel>
                         </FormItem>
+
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
                             <RadioGroupItem value="July" />
@@ -273,18 +274,18 @@ export default function StudyDetailsForm() {
                   </FormItem>
                 )}
               />
-              {needAccommodation && (
+              {needAccommodation && selectedCampus && (
                 <FormField
                   control={form.control}
-                  name="accommodationChoice"
+                  name="accommodation"
                   render={({ field }) => (
                     <FormItem className="col-span-2">
-                      <FormLabel>Accommodation Choice</FormLabel>
+                      <FormLabel>Accommodation Type</FormLabel>
                       <FormControl>
                         <RadioGroup
                           onValueChange={(value) => {
                             field.onChange(value);
-                            handleChange("accommodationChoice", value);
+                            handleChange("accommodation", value);
                           }}
                           value={field.value}
                           className="flex flex-col space-y-1"
@@ -311,8 +312,8 @@ export default function StudyDetailsForm() {
                   )}
                 />
               )}
-              <Button type="submit" className="col-span-2">
-                Submit
+              <Button type="submit" className="col-span-2 mt-4">
+                Next
               </Button>
             </form>
           </Form>
