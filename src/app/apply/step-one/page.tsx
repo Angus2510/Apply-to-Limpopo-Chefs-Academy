@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import { stepOneSchema, NewApplyInitialValuesType } from '@/schemas';
-import { useAddApplyContext } from '@/contexts/applyContext';
-import { useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { stepOneSchema, NewApplyInitialValuesType } from "@/schemas";
+import { useAddApplyContext } from "@/contexts/applyContext";
+import { useEffect } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -14,19 +14,26 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Card,
   CardContent,
   CardHeader,
   CardDescription,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 
 export default function StepOneForm() {
-  const { newApplyData, updateNewApplyDetails, dataLoaded } = useAddApplyContext();
+  const { newApplyData, updateNewApplyDetails, dataLoaded } =
+    useAddApplyContext();
   const router = useRouter();
 
   const form = useForm<NewApplyInitialValuesType>({
@@ -48,17 +55,19 @@ export default function StepOneForm() {
     const result = stepOneSchema.safeParse(values);
     if (result.success) {
       updateNewApplyDetails(values);
-      router.push('/apply/step-two');
+      router.push("/apply/step-two");
     }
   };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <Card className="w-full max-w-3xl mx-auto mt-4">
-       <CardHeader>
-         <CardTitle>Student Details</CardTitle>
-         <CardDescription>Please fill out all the student details.</CardDescription>
-         </CardHeader>
+        <CardHeader>
+          <CardTitle>Student Details</CardTitle>
+          <CardDescription>
+            Please fill out all the student details.
+          </CardDescription>
+        </CardHeader>
         <CardContent className="p-6 md:p-8">
           <Form {...form}>
             <form
@@ -80,7 +89,7 @@ export default function StepOneForm() {
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
-                          handleChange('studentName', e.target.value);
+                          handleChange("studentName", e.target.value);
                         }}
                       />
                     </FormControl>
@@ -103,7 +112,7 @@ export default function StepOneForm() {
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
-                          handleChange('studentSurname', e.target.value);
+                          handleChange("studentSurname", e.target.value);
                         }}
                       />
                     </FormControl>
@@ -126,7 +135,7 @@ export default function StepOneForm() {
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
-                          handleChange('studentIdNumber', e.target.value);
+                          handleChange("studentIdNumber", e.target.value);
                         }}
                       />
                     </FormControl>
@@ -145,7 +154,7 @@ export default function StepOneForm() {
                     <Select
                       onValueChange={(value) => {
                         field.onChange(value);
-                        handleChange('studentGender', value);
+                        handleChange("studentGender", value);
                       }}
                       defaultValue={field.value}
                     >
@@ -179,7 +188,7 @@ export default function StepOneForm() {
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
-                          handleChange('emailAddress', e.target.value);
+                          handleChange("emailAddress", e.target.value);
                         }}
                       />
                     </FormControl>
@@ -202,7 +211,7 @@ export default function StepOneForm() {
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
-                          handleChange('phone', e.target.value);
+                          handleChange("phone", e.target.value);
                         }}
                       />
                     </FormControl>
@@ -216,7 +225,7 @@ export default function StepOneForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                    Whatsapp Number
+                      Whatsapp Number <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -225,7 +234,7 @@ export default function StepOneForm() {
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
-                          handleChange('whatsapp', e.target.value);
+                          handleChange("whatsapp", e.target.value);
                         }}
                       />
                     </FormControl>
@@ -248,7 +257,7 @@ export default function StepOneForm() {
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
-                          handleChange('studentAddress', e.target.value);
+                          handleChange("studentAddress", e.target.value);
                         }}
                       />
                     </FormControl>
@@ -271,7 +280,7 @@ export default function StepOneForm() {
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
-                          handleChange('studentCity', e.target.value);
+                          handleChange("studentCity", e.target.value);
                         }}
                       />
                     </FormControl>
@@ -294,7 +303,7 @@ export default function StepOneForm() {
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
-                          handleChange('studentProvince', e.target.value);
+                          handleChange("studentProvince", e.target.value);
                         }}
                       />
                     </FormControl>
@@ -308,7 +317,8 @@ export default function StepOneForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Student Postal Code <span className="text-red-500">*</span>
+                      Student Postal Code{" "}
+                      <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -317,7 +327,7 @@ export default function StepOneForm() {
                         {...field}
                         onChange={(e) => {
                           field.onChange(e);
-                          handleChange('studentPostalCode', e.target.value);
+                          handleChange("studentPostalCode", e.target.value);
                         }}
                       />
                     </FormControl>

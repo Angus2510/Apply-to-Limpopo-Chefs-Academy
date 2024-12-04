@@ -10,7 +10,12 @@ export const stepOneSchema = z.object({
     .refine((value) => value.length > 0, {
       message: "Invalid phone number",
     }),
-  whatsapp: z.string().optional(),
+  whatsapp: z
+    .string()
+    .min(1, "Phone number is required")
+    .refine((value) => value.length > 0, {
+      message: "Invalid phone number",
+    }),
   studentIdNumber: z.string().min(1, "ID number is required"),
   studentGender: z.enum(["Male", "Female", "Other"]),
   studentAddress: z.string().min(1, "Address is required"),
