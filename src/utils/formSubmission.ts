@@ -121,7 +121,7 @@ const generatePDF = async (
         "Campus Choice": data.campusChoice || "",
         Intake: data.intake || "",
         "Need Accommodation": data.needAccommodation ? "Yes" : "No",
-        "Accommodation Option": data.accommodationOption || "",
+        "Accommodation Option": data.accommodation || "",
       },
       yPos + 10
     );
