@@ -153,8 +153,8 @@ const sendEmail = async (
     });
 
     const campusEmails = {
-      Mokopane: "reception@limpopochefs.co.za",
-      Polokwane: "polokwane@limpopochefs.co.za",
+      Mokopane: "info@limpopochefs.co.za",
+      Polokwane: "info@limpopochefs.co.za",
     };
 
     const campusEmail = campusEmails[data.campusChoice || "Mokopane"];
