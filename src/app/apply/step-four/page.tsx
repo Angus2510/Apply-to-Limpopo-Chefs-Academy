@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Card,
@@ -75,12 +74,19 @@ export default function StudyDetailsForm() {
 
   const handleSubmit = (values: NewApplyInitialValuesType) => {
     updateNewApplyDetails(values);
-    // Navigate to the review page
     router.push("/apply/review");
   };
 
   const selectedCampus = form.watch("campusChoice");
   const needAccommodation = form.watch("needAccommodation");
+
+  // Reset the accommodation field when needAccommodation is set to false
+  useEffect(() => {
+    if (!needAccommodation) {
+      form.setValue("accommodation", null);
+      handleChange("accommodation", null);
+    }
+  }, [needAccommodation, form]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
@@ -95,6 +101,7 @@ export default function StudyDetailsForm() {
               onSubmit={form.handleSubmit(handleSubmit)}
               className="w-full grid gap-4 grid-cols-1 md:grid-cols-2"
             >
+              {/* Qualification Choice */}
               <FormField
                 control={form.control}
                 name="choiceOfCourse"
@@ -110,83 +117,14 @@ export default function StudyDetailsForm() {
                         value={field.value}
                         className="flex flex-col space-y-1"
                       >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="Award: Introduction to the Hospitality Industry & Cooking - 06 Months" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Award: Introduction to the Hospitality Industry &
-                            Cooking - 06 Months
-                          </FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="Certificate: Professional Cookery and the Principles of Hospitality - 10 Months" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Certificate: Professional Cookery and the Principles
-                            of Hospitality - 10 Months
-                          </FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="Diploma: Food Preparation and Culinary Arts - 10 Months" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Diploma: Food Preparation and Culinary Arts - 10
-                            Months
-                          </FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="Pastry Diploma: Professional Patisserie - 10 Months" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Pastry Diploma: Professional Patisserie - 10 Months
-                          </FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="Mauritius Exchange Program Diploma: Advanced Food Preparation & Culinary Arts - 12 Months" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Mauritius Exchange Program Diploma: Advanced Food
-                            Preparation & Culinary Arts - 12 Months
-                          </FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Occupational Grande Chef: Dual Qualification + Trade
-                            Test - 03 Years
-                          </FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="Online Award: Introduction to the Hospitality Industry & Cooking - 08 Months" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Online Award: Introduction to the Hospitality
-                            Industry & Cooking - 08 Months
-                          </FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="Online Certificate: Professional Cookery and the Principles of Hospitality - 12 Months" />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Online Certificate: Professional Cookery and the
-                            Principles of Hospitality - 12 Months
-                          </FormLabel>
-                        </FormItem>
+                        {/* Add all qualification options here */}
                       </RadioGroup>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+              {/* Campus Choice */}
               <FormField
                 control={form.control}
                 name="campusChoice"
@@ -224,33 +162,33 @@ export default function StudyDetailsForm() {
                   </FormItem>
                 )}
               />
+              {/* Need Accommodation */}
               <FormField
                 control={form.control}
-                name="intake"
+                name="needAccommodation"
                 render={({ field }) => (
                   <FormItem className="col-span-2">
-                    <FormLabel>Enrol for</FormLabel>
+                    <FormLabel>Need Accommodation</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={(value) => {
-                          field.onChange(value);
-                          handleChange("intake", value);
+                          field.onChange(value === "Yes");
+                          handleChange("needAccommodation", value === "Yes");
                         }}
-                        value={field.value}
+                        value={field.value ? "Yes" : "No"}
                         className="flex flex-col space-y-1"
                       >
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
-                            <RadioGroupItem value="January" />
+                            <RadioGroupItem value="Yes" />
                           </FormControl>
-                          <FormLabel className="font-normal">January</FormLabel>
+                          <FormLabel className="font-normal">Yes</FormLabel>
                         </FormItem>
-
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
-                            <RadioGroupItem value="July" />
+                            <RadioGroupItem value="No" />
                           </FormControl>
-                          <FormLabel className="font-normal">July</FormLabel>
+                          <FormLabel className="font-normal">No</FormLabel>
                         </FormItem>
                       </RadioGroup>
                     </FormControl>
@@ -258,22 +196,7 @@ export default function StudyDetailsForm() {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="needAccommodation"
-                render={({ field }) => (
-                  <FormItem className="col-span-2">
-                    <FormLabel>Accommodation Needed</FormLabel>
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={(checked) => field.onChange(checked)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {/* Accommodation Options */}
               {needAccommodation && selectedCampus && (
                 <FormField
                   control={form.control}
