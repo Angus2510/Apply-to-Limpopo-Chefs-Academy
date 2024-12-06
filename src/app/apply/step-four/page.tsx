@@ -83,8 +83,8 @@ export default function StudyDetailsForm() {
   // Reset the accommodation field when needAccommodation is set to false
   useEffect(() => {
     if (!needAccommodation) {
-      form.setValue("accommodation", null);
-      handleChange("accommodation", null);
+      form.setValue("accommodation", "");
+      handleChange("accommodation", "");
     }
   }, [needAccommodation, form]);
 
