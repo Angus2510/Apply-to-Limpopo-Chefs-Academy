@@ -19,7 +19,7 @@ export const handleFinalSubmission = async (
     console.log("Generating PDF...");
     const pdfBuffer = await generatePDF(data);
 
-    console.log("Sending email...");
+    console.log("Sending emails...");
     await sendEmail(pdfBuffer, data);
 
     console.log("All operations completed successfully");
@@ -152,14 +152,17 @@ const sendEmail = async (
       },
     });
 
+    // Define campus emails
     const campusEmails = {
-      Mokopane: "info@limpopochefs.co.za",
-      Polokwane: "info@limpopochefs.co.za",
+      Mokopane: "reception@limpopochefs.co.za",
+      Polokwane: "polokwane@limpopochefs.co.za",
     };
 
+    // Choose the campus email based on the submitted form data
     const campusEmail = campusEmails[data.campusChoice || "Mokopane"];
     console.log(`Sending email to campus: ${campusEmail}`);
 
+    // Mail options for the campus email
     const mailOptionsCampus = {
       from: process.env.EMAIL_USER,
       to: campusEmail,
@@ -167,15 +170,35 @@ const sendEmail = async (
       text: `Application form submitted by ${data.studentName} ${data.studentSurname}. Attached is the application PDF.`,
       attachments: [
         {
-          filename: "application.pdf",
+          filename: `${data.studentName} ${data.studentSurname}.pdf`,
           content: pdfBuffer,
           contentType: "application/pdf",
         },
       ],
     };
 
+    // Send email to campus
     const infoCampus = await transporter.sendMail(mailOptionsCampus);
     console.log("Campus email sent successfully:", infoCampus.messageId);
+
+    // **New code**: Send confirmation email to the student
+    const mailOptionsStudent = {
+      from: process.env.EMAIL_USER,
+      to: data.emailAddress, // Send to the student's email address
+      subject: `Your Application Submission - ${data.studentName} ${data.studentSurname}`,
+      text: `Dear ${data.studentName},\n\nThank you for submitting your application to Limpopo Chefs Academy. We have successfully received your application, and our team will review it shortly.\n\nAttached is a copy of your application form for your reference.\n\nBest regards,\nLimpopo Chefs Academy\n\n---\nThis is an automated message, please do not reply to this email.`,
+      attachments: [
+        {
+          filename: `${data.studentName} ${data.studentSurname}.pdf`,
+          content: pdfBuffer,
+          contentType: "application/pdf",
+        },
+      ],
+    };
+
+    // Send email to the student
+    const infoStudent = await transporter.sendMail(mailOptionsStudent);
+    console.log("Student email sent successfully:", infoStudent.messageId);
   } catch (error) {
     console.error("Error sending email:", error);
     throw new Error("Failed to send email");
