@@ -181,7 +181,6 @@ const sendEmail = async (
     const infoCampus = await transporter.sendMail(mailOptionsCampus);
     console.log("Campus email sent successfully:", infoCampus.messageId);
 
-    // **New code**: Send confirmation email to the student
     const mailOptionsStudent = {
       from: process.env.EMAIL_USER,
       to: data.emailAddress, // Send to the student's email address
