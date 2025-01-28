@@ -1,10 +1,10 @@
-'use client';
+"use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { educationFormSchema, NewApplyInitialValuesType } from "@/schemas";
 import { useAddApplyContext } from "@/contexts/applyContext";
-import { z } from 'zod'; 
-import { useEffect } from 'react';
+import { z } from "zod";
+import { useEffect } from "react";
 
 import {
   Form,
@@ -24,11 +24,12 @@ import {
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import "react-phone-number-input/style.css";
 
 export default function EducationForm() {
-  const { newApplyData, updateNewApplyDetails, dataLoaded } = useAddApplyContext();
+  const { newApplyData, updateNewApplyDetails, dataLoaded } =
+    useAddApplyContext();
   const router = useRouter();
   const form = useForm<z.infer<typeof educationFormSchema>>({
     resolver: zodResolver(educationFormSchema),
@@ -47,15 +48,17 @@ export default function EducationForm() {
 
   const handleSubmit = (values: z.infer<typeof educationFormSchema>) => {
     updateNewApplyDetails(values);
-    router.push('/apply/step-four'); // Replace with actual next step URL
+    router.push("/apply/step-four"); // Replace with actual next step URL
   };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <Card className="w-full max-w-3xl mx-auto mt-4">
         <CardHeader>
-         <CardTitle>High School Details</CardTitle>
-         <CardDescription>Please enter the students high school details.</CardDescription>
+          <CardTitle>High School Details</CardTitle>
+          <CardDescription>
+            Please enter the students high school details.
+          </CardDescription>
         </CardHeader>
         <CardContent className="p-6 md:p-8">
           <Form {...form}>
@@ -73,11 +76,12 @@ export default function EducationForm() {
                       checked={field.value}
                       onCheckedChange={(value) => {
                         field.onChange(value);
-                        handleChange('attendingSchool', value);
+                        handleChange("attendingSchool", value);
                       }}
                     />
                     <FormLabel htmlFor="attendingSchool" className="ml-2">
-                      Did You Attended High School?<span className="text-red-500">*</span>
+                      Did You Attend High School?
+                      <span className="text-red-500">*</span>
                     </FormLabel>
                   </FormItem>
                 )}
@@ -88,7 +92,10 @@ export default function EducationForm() {
                   name="highestGrade"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Highest Grade Passed <span className="text-red-500">*</span></FormLabel>
+                      <FormLabel>
+                        Highest Grade Passed{" "}
+                        <span className="text-red-500">*</span>
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Highest Grade"
@@ -96,7 +103,7 @@ export default function EducationForm() {
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            handleChange('highestGrade', e.target.value);
+                            handleChange("highestGrade", e.target.value);
                           }}
                         />
                       </FormControl>
@@ -109,7 +116,9 @@ export default function EducationForm() {
                   name="passedYear"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Year Passed <span className="text-red-500">*</span></FormLabel>
+                      <FormLabel>
+                        Year Passed <span className="text-red-500">*</span>
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Year Passed"
@@ -117,7 +126,7 @@ export default function EducationForm() {
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            handleChange('passedYear', e.target.value);
+                            handleChange("passedYear", e.target.value);
                           }}
                         />
                       </FormControl>
@@ -131,7 +140,9 @@ export default function EducationForm() {
                 name="subjects"
                 render={({ field }) => (
                   <FormItem className="col-span-2">
-                    <FormLabel>Subjects <span className="text-red-500">*</span></FormLabel>
+                    <FormLabel>
+                      Subjects <span className="text-red-500">*</span>
+                    </FormLabel>
                     <FormControl>
                       <textarea
                         placeholder="Subjects"
@@ -139,7 +150,7 @@ export default function EducationForm() {
                         className="w-full h-32 p-2 border rounded-md"
                         onChange={(e) => {
                           field.onChange(e);
-                          handleChange('subjects', e.target.value);
+                          handleChange("subjects", e.target.value);
                         }}
                       />
                     </FormControl>
