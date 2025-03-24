@@ -80,7 +80,6 @@ export default function StudyDetailsForm() {
   const selectedCampus = form.watch("campusChoice");
   const needAccommodation = form.watch("needAccommodation");
 
-  // Reset the accommodation field when needAccommodation is set to false
   useEffect(() => {
     if (!needAccommodation) {
       form.setValue("accommodation", "");
@@ -101,13 +100,12 @@ export default function StudyDetailsForm() {
               onSubmit={form.handleSubmit(handleSubmit)}
               className="w-full grid gap-4 grid-cols-1 md:grid-cols-2"
             >
-              {/* Qualification Choice */}
               <FormField
                 control={form.control}
                 name="choiceOfCourse"
                 render={({ field }) => (
                   <FormItem className="col-span-2">
-                    <FormLabel>Qualification Choice</FormLabel>
+                    <FormLabel>Select Qualification</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={(value) => {
@@ -117,115 +115,72 @@ export default function StudyDetailsForm() {
                         value={field.value}
                         className="flex flex-col space-y-1"
                       >
-                        {/* Add all qualification options here */}
-                        <FormField
-                          control={form.control}
-                          name="choiceOfCourse"
-                          render={({ field }) => (
-                            <FormItem className="col-span-2">
-                              <FormLabel>Qualification Choice</FormLabel>
-                              <FormControl>
-                                <RadioGroup
-                                  onValueChange={(value) => {
-                                    field.onChange(value);
-                                    handleChange("choiceOfCourse", value);
-                                  }}
-                                  value={field.value}
-                                  className="flex flex-col space-y-1"
-                                >
-                                  <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                      <RadioGroupItem value="Award: Introduction to the Hospitality Industry & Cooking - 06 Months" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                      Award: Introduction to the Hospitality
-                                      Industry & Cooking - 06 Months
-                                    </FormLabel>
-                                  </FormItem>
-                                  <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                      <RadioGroupItem value="Certificate: Professional Cookery and the Principles of Hospitality - 10 Months" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                      Certificate: Professional Cookery and the
-                                      Principles of Hospitality - 10 Months
-                                    </FormLabel>
-                                  </FormItem>
-                                  <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                      <RadioGroupItem value="Diploma: Food Preparation and Culinary Arts - 10 Months" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                      Diploma: Food Preparation and Culinary
-                                      Arts - 10 Months
-                                    </FormLabel>
-                                  </FormItem>
-                                  <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                      <RadioGroupItem value="Pastry Diploma: Professional Patisserie - 10 Months" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                      Pastry Diploma: Professional Patisserie -
-                                      10 Months
-                                    </FormLabel>
-                                  </FormItem>
-                                  <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                      <RadioGroupItem value="Mauritius Exchange Program Diploma: Advanced Food Preparation & Culinary Arts - 12 Months" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                      Mauritius Exchange Program Diploma:
-                                      Advanced Food Preparation & Culinary Arts
-                                      - 12 Months
-                                    </FormLabel>
-                                  </FormItem>
-                                  <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                      <RadioGroupItem value="Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                      Occupational Grande Chef: Dual
-                                      Qualification + Trade Test - 03 Years
-                                    </FormLabel>
-                                  </FormItem>
-                                  <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                      <RadioGroupItem value="Online Award: Introduction to the Hospitality Industry & Cooking - 08 Months" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                      Online Award: Introduction to the
-                                      Hospitality Industry & Cooking - 08 Months
-                                    </FormLabel>
-                                  </FormItem>
-                                  <FormItem className="flex items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                      <RadioGroupItem value="Online Certificate: Professional Cookery and the Principles of Hospitality - 12 Months" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">
-                                      Online Certificate: Professional Cookery
-                                      and the Principles of Hospitality - 12
-                                      Months
-                                    </FormLabel>
-                                  </FormItem>
-                                </RadioGroup>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="Award: Introduction to the Hospitality Industry & Cooking - 06 Months" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Award: Introduction to the Hospitality Industry &
+                            Cooking - 06 Months
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="Certificate: Professional Cookery and the Principles of Hospitality - 10 Months" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Certificate: Professional Cookery and the Principles
+                            of Hospitality - 10 Months
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="Diploma: Food Preparation and Culinary Arts - 10 Months" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Diploma: Food Preparation and Culinary Arts - 10
+                            Months
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="Pastry Diploma: Professional Patisserie - 10 Months" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Pastry Diploma: Professional Patisserie - 10 Months
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="France Exchange Program Diploma: Food Preparation & Culinary Arts - 14 Months" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            France Exchange Program Diploma: Food Preparation &
+                            Culinary Arts - 14 Months
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Occupational Grande Chef: Dual Qualification + Trade
+                            Test - 03 Years
+                          </FormLabel>
+                        </FormItem>
                       </RadioGroup>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              {/* Campus Choice */}
+
               <FormField
                 control={form.control}
                 name="campusChoice"
                 render={({ field }) => (
                   <FormItem className="col-span-2">
-                    <FormLabel>Campus Choice</FormLabel>
+                    <FormLabel>Select Campus</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={(value) => {
@@ -257,13 +212,13 @@ export default function StudyDetailsForm() {
                   </FormItem>
                 )}
               />
-              {/* Need Accommodation */}
+
               <FormField
                 control={form.control}
                 name="needAccommodation"
                 render={({ field }) => (
                   <FormItem className="col-span-2">
-                    <FormLabel>Need Accommodation</FormLabel>
+                    <FormLabel>Do you need Student Accommodation?</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={(value) => {
@@ -291,7 +246,7 @@ export default function StudyDetailsForm() {
                   </FormItem>
                 )}
               />
-              {/* Accommodation Options */}
+
               {needAccommodation && selectedCampus && (
                 <FormField
                   control={form.control}

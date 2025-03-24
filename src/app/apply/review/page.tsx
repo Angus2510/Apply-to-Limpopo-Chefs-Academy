@@ -131,7 +131,7 @@ export default function SummaryPage() {
               <h3 className="font-semibold">Course and Campus</h3>
               <p>Choice of Course: {newApplyData?.choiceOfCourse || ""}</p>
               <p>Campus Choice: {newApplyData?.campusChoice || ""}</p>
-              <p>Intake: {newApplyData?.intake || ""}</p>
+
               <p>
                 Need Accommodation:{" "}
                 {newApplyData?.needAccommodation ? "Yes" : "No"}
