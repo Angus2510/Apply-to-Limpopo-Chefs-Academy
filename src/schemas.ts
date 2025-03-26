@@ -44,10 +44,8 @@ export const studyDetailsSchema = z.object({
       "Certificate: Professional Cookery and the Principles of Hospitality - 10 Months",
       "Diploma: Food Preparation and Culinary Arts - 10 Months",
       "Pastry Diploma: Professional Patisserie - 10 Months",
-      "Mauritius Exchange Program Diploma: Advanced Food Preparation & Culinary Arts - 12 Months",
+      "France Exchange Program Diploma: Food Preparation & Culinary Arts - 14 Months",
       "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
-      "Online Award: Introduction to the Hospitality Industry & Cooking - 08 Months",
-      "Online Certificate: Professional Cookery and the Principles of Hospitality - 12 Months",
     ])
     .optional(),
   campusChoice: z.enum(["Mokopane", "Polokwane"]),
@@ -96,10 +94,8 @@ export const newApplyInitialValuesSchema = z.object({
       "Certificate: Professional Cookery and the Principles of Hospitality - 10 Months",
       "Diploma: Food Preparation and Culinary Arts - 10 Months",
       "Pastry Diploma: Professional Patisserie - 10 Months",
-      "Mauritius Exchange Program Diploma: Advanced Food Preparation & Culinary Arts - 12 Months",
+      "France Exchange Program Diploma: Food Preparation & Culinary Arts - 14 Months",
       "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
-      "Online Award: Introduction to the Hospitality Industry & Cooking - 08 Months",
-      "Online Certificate: Professional Cookery and the Principles of Hospitality - 12 Months",
     ])
     .optional(),
   campusChoice: z.enum(["Mokopane", "Polokwane"]).optional(),
