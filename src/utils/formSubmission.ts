@@ -119,7 +119,6 @@ const generatePDF = async (
       {
         "Choice of Course": data.choiceOfCourse || "",
         "Campus Choice": data.campusChoice || "",
-        Intake: data.intake || "",
         "Need Accommodation": data.needAccommodation ? "Yes" : "No",
         "Accommodation Option": data.accommodation || "",
       },
