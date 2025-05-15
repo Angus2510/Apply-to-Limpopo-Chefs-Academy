@@ -129,11 +129,11 @@ export default function SummaryPage() {
           {/* Add reCAPTCHA here */}
           <div className="mt-6 mb-4 flex flex-col items-center">
             <p className="text-sm text-gray-600 mb-2">
-              Please verify that you're not a robot
+              Please verify that you&#39;re not a robot
             </p>
             <ReCAPTCHA
               ref={recaptchaRef}
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+              sitekey={process.env.RECAPTCHA_SITE_KEY || ""}
               onChange={handleCaptchaChange}
             />
           </div>
