@@ -103,25 +103,60 @@ export default function SummaryPage() {
           )}
           <h2 className="text-2xl font-bold mb-4">Summary</h2>
           <div className="grid gap-4">
-            {/* Your existing form sections here */}
             <div>
               <h3 className="font-semibold">Student Details</h3>
-              {/* Student details content */}
+              <p>Name: {newApplyData?.studentName || ""}</p>
+              <p>Surname: {newApplyData?.studentSurname || ""}</p>
+              <p>ID Number: {newApplyData?.studentIdNumber || ""}</p>
+              <p>Email: {newApplyData?.emailAddress || ""}</p>
+              <p>Phone: {newApplyData?.phone || ""}</p>
+              <p>Whatsapp Number: {newApplyData?.whatsapp || ""}</p>
+              <p>Gender: {newApplyData?.studentGender || ""}</p>
+              <p>Address: {newApplyData?.studentAddress || ""}</p>
+              <p>City: {newApplyData?.studentCity || ""}</p>
+              <p>Province: {newApplyData?.studentProvince || ""}</p>
+              <p>Postal Code: {newApplyData?.studentPostalCode || ""}</p>
               <Button onClick={() => handleEdit("step-one")}>Edit</Button>
             </div>
             <div>
               <h3 className="font-semibold">Guardian Details</h3>
-              {/* Guardian details content */}
+              <p>Email: {newApplyData?.guardianEmail || ""}</p>
+              <p>Phone: {newApplyData?.guardianPhone || ""}</p>
+              <p>Name: {newApplyData?.guardianName || ""}</p>
+              <p>Surname: {newApplyData?.guardianSurname || ""}</p>
+              <p>Relation: {newApplyData?.guardianRelation || ""}</p>
               <Button onClick={() => handleEdit("step-two")}>Edit</Button>
             </div>
             <div>
               <h3 className="font-semibold">Study Details</h3>
-              {/* Study details content */}
+              <p>
+                Attending School: {newApplyData?.attendingSchool ? "Yes" : "No"}
+              </p>
+              <p>Highest Grade: {newApplyData?.highestGrade || ""}</p>
+              <p>Year Passed: {newApplyData?.passedYear || ""}</p>
+              <p>Subjects: {newApplyData?.subjects || ""}</p>
               <Button onClick={() => handleEdit("step-three")}>Edit</Button>
             </div>
+
             <div>
               <h3 className="font-semibold">Course and Campus</h3>
-              {/* Course and campus details content */}
+              <p>Choice of Course: {newApplyData?.choiceOfCourse || ""}</p>
+              <p>Campus Choice: {newApplyData?.campusChoice || ""}</p>
+
+              <p>
+                Need Accommodation:{" "}
+                {newApplyData?.needAccommodation ? "Yes" : "No"}
+              </p>
+              {newApplyData?.needAccommodation && (
+                <div>
+                  <p>
+                    Accommodation Option:{" "}
+                    {newApplyData?.needAccommodation
+                      ? newApplyData?.accommodation
+                      : "Not selected"}
+                  </p>
+                </div>
+              )}
               <Button onClick={() => handleEdit("step-four")}>Edit</Button>
             </div>
           </div>
