@@ -146,6 +146,10 @@ const sendEmail = async (
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
+      tls: {
+        // Add this configuration to accept self-signed certificates
+        rejectUnauthorized: false,
+      },
     });
 
     // Define campus emails
