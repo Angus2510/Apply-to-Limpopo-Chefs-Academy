@@ -28,14 +28,14 @@ import { studyDetailsSchema, NewApplyInitialValuesType } from "@/schemas";
 const accommodationOptions = {
   Mokopane: [
     {
-      label: "Single Room (En-suite) - R5800/Month",
-      value: "Single Room (En-suite) - R5800/Month",
+      label: "Single Room (En-suite) - R5600/Month",
+      value: "Single Room (En-suite) - R5600/Month",
     },
     {
       label: "Sharing Room (En-suite) - R3300/Month",
       value: "Sharing Room (En-suite) - R3300/Month",
     },
-    { label: "Single Room - R5600/Month", value: "Single Room - R5600/Month" },
+
     {
       label: "Sharing Room - R2800/Month",
       value: "Sharing Room - R2800/Month",
