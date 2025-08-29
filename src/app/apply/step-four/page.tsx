@@ -35,7 +35,7 @@ const accommodationOptions = {
       label: "Sharing Room (En-suite) - R3300/Month",
       value: "Sharing Room (En-suite) - R3300/Month",
     },
-    { label: "Single Room - R3300/Month", value: "Single Room - R3300/Month" },
+    { label: "Single Room - R5600/Month", value: "Single Room - R5600/Month" },
     {
       label: "Sharing Room - R2800/Month",
       value: "Sharing Room - R2800/Month",
@@ -46,6 +46,10 @@ const accommodationOptions = {
     },
   ],
   Polokwane: [
+    {
+      label: "Single Room - R5600/Month",
+      value: "Single Room - R5600/Month",
+    },
     {
       label: "Sharing Room - R2800/Month",
       value: "Sharing Room - R2800/Month",
