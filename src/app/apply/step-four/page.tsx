@@ -47,8 +47,8 @@ const accommodationOptions = {
   ],
   Polokwane: [
     {
-      label: "Sharing Room - R3000/Month",
-      value: "Sharing Room - R3000/Month",
+      label: "Sharing Room - R2800/Month",
+      value: "Sharing Room - R2800/Month",
     },
   ],
 };
