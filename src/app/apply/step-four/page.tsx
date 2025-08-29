@@ -28,27 +28,27 @@ import { studyDetailsSchema, NewApplyInitialValuesType } from "@/schemas";
 const accommodationOptions = {
   Mokopane: [
     {
-      label: "Sinlge Room (En-suite) - R5500/Month",
-      value: "Sinlge Room (En-suite) - R5500/Month",
+      label: "Single Room (En-suite) - R5800/Month",
+      value: "Single Room (En-suite) - R5800/Month",
     },
     {
-      label: "Sharing Room (En-suite) - R3000/Month",
-      value: "Sharing Room (En-suite) - R3000/Month",
+      label: "Sharing Room (En-suite) - R3300/Month",
+      value: "Sharing Room (En-suite) - R3300/Month",
     },
-    { label: "Single Room - R3000/Month", value: "Single Room - R3000/Month" },
+    { label: "Single Room - R3300/Month", value: "Single Room - R3300/Month" },
     {
-      label: "Sharing Room - R2500/Month",
-      value: "Sharing Room - R2500/Month",
+      label: "Sharing Room - R2800/Month",
+      value: "Sharing Room - R2800/Month",
     },
     {
-      label: "Sharing Room (Voor Street) - R2000/Month",
-      value: "Sharing Room (Voor Street) - R2000/Month",
+      label: "Sharing Room (Voor Street) - R2300/Month",
+      value: "Sharing Room (Voor Street) - R2300/Month",
     },
   ],
   Polokwane: [
     {
-      label: "Sharing Room - R2500/Month",
-      value: "Sharing Room - R2500/Month",
+      label: "Sharing Room - R2800/Month",
+      value: "Sharing Room - R2800/Month",
     },
   ],
 };
@@ -117,11 +117,11 @@ export default function StudyDetailsForm() {
                       >
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
-                            <RadioGroupItem value="Award: Introduction to the Hospitality Industry & Cooking - 06 Months" />
+                            <RadioGroupItem value="Award: Introduction to the Hospitality Industry & Cooking - 05 Months" />
                           </FormControl>
                           <FormLabel className="font-normal">
                             Award: Introduction to the Hospitality Industry &
-                            Cooking - 06 Months
+                            Cooking - 05 Months
                           </FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-3 space-y-0">
@@ -135,28 +135,28 @@ export default function StudyDetailsForm() {
                         </FormItem>
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
-                            <RadioGroupItem value="Diploma: Food Preparation and Culinary Arts - 10 Months" />
+                            <RadioGroupItem value="Diploma: Food Preparation and Culinary Arts - 17 Months" />
                           </FormControl>
                           <FormLabel className="font-normal">
-                            Diploma: Food Preparation and Culinary Arts - 10
+                            Diploma: Food Preparation and Culinary Arts - 17
                             Months
                           </FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
-                            <RadioGroupItem value="Pastry Diploma: Professional Patisserie - 10 Months" />
+                            <RadioGroupItem value="Pastry Diploma: Professional Patisserie - 17 Months" />
                           </FormControl>
                           <FormLabel className="font-normal">
-                            Pastry Diploma: Professional Patisserie - 10 Months
+                            Pastry Diploma: Professional Patisserie - 17 Months
                           </FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
-                            <RadioGroupItem value="France Exchange Program Diploma: Food Preparation & Culinary Arts - 14 Months" />
+                            <RadioGroupItem value="International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months" />
                           </FormControl>
                           <FormLabel className="font-normal">
-                            France Exchange Program Diploma: Food Preparation &
-                            Culinary Arts - 14 Months
+                            International Exchange Program Diploma: Food
+                            Preparation & Culinary Arts - 17 Months
                           </FormLabel>
                         </FormItem>
                         <FormItem className="flex items-center space-x-3 space-y-0">

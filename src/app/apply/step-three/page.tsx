@@ -66,26 +66,6 @@ export default function EducationForm() {
               onSubmit={form.handleSubmit(handleSubmit)}
               className="w-full grid gap-4 grid-cols-1 md:grid-cols-2"
             >
-              <FormField
-                control={form.control}
-                name="attendingSchool"
-                render={({ field }) => (
-                  <FormItem className="col-span-2">
-                    <Checkbox
-                      id="attendingSchool"
-                      checked={field.value}
-                      onCheckedChange={(value) => {
-                        field.onChange(value);
-                        handleChange("attendingSchool", value);
-                      }}
-                    />
-                    <FormLabel htmlFor="attendingSchool" className="ml-2">
-                      Did You Attend High School?
-                      <span className="text-red-500">*</span>
-                    </FormLabel>
-                  </FormItem>
-                )}
-              />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 col-span-2">
                 <FormField
                   control={form.control}
