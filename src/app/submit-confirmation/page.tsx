@@ -15,9 +15,10 @@ export default function SubmitConfirmation() {
         </CardHeader>
         <CardContent className="flex flex-col items-center">
           <p className="text-center mb-4">
-            Thank you for your application! We will review your submission and
-            get back to you soon. Please do not resubmit until we get back to
-            you
+            Thank you for your application. Our team will review your submission
+            shortly. Please do not resubmit until you hear back from us. A
+            member of our Admissions Department will be in touch with you to
+            discuss the next steps.
           </p>
           <Link href="https://limpopochefs.co.za/">
             <Button className="mt-4">Go to Website</Button>
