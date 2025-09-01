@@ -33,7 +33,7 @@ const defaultApply: NewApplyInitialValuesType = {
   passedYear: "",
   subjects: "",
   choiceOfCourse:
-    "Award: Introduction to the Hospitality Industry & Cooking - 06 Months",
+    "Award: Introduction to the Hospitality Industry & Cooking - 05 Months",
   campusChoice: "Mokopane",
   intake: "January",
   needAccommodation: false,
