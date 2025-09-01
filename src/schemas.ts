@@ -40,11 +40,11 @@ export const guardianFormSchema = z.object({
 export const studyDetailsSchema = z.object({
   choiceOfCourse: z
     .enum([
-      "Award: Introduction to the Hospitality Industry & Cooking - 06 Months",
+      "Award: Introduction to the Hospitality Industry & Cooking - 05 Months",
       "Certificate: Professional Cookery and the Principles of Hospitality - 10 Months",
-      "Diploma: Food Preparation and Culinary Arts - 10 Months",
-      "Pastry Diploma: Professional Patisserie - 10 Months",
-      "France Exchange Program Diploma: Food Preparation & Culinary Arts - 14 Months",
+      "Diploma: Food Preparation and Culinary Arts - 17 Months",
+      "Pastry Diploma: Professional Patisserie - 17 Months",
+      "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months",
       "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
     ])
     .optional(),
@@ -90,11 +90,11 @@ export const newApplyInitialValuesSchema = z.object({
 
   choiceOfCourse: z
     .enum([
-      "Award: Introduction to the Hospitality Industry & Cooking - 06 Months",
+      "Award: Introduction to the Hospitality Industry & Cooking - 05 Months",
       "Certificate: Professional Cookery and the Principles of Hospitality - 10 Months",
-      "Diploma: Food Preparation and Culinary Arts - 10 Months",
-      "Pastry Diploma: Professional Patisserie - 10 Months",
-      "France Exchange Program Diploma: Food Preparation & Culinary Arts - 14 Months",
+      "Diploma: Food Preparation and Culinary Arts - 17 Months",
+      "Pastry Diploma: Professional Patisserie - 17 Months",
+      "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months",
       "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
     ])
     .optional(),
