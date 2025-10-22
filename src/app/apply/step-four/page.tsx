@@ -28,31 +28,50 @@ import { studyDetailsSchema, NewApplyInitialValuesType } from "@/schemas";
 const accommodationOptions = {
   Mokopane: [
     {
-      label: "Single Room (En-suite) - R5600/Month",
-      value: "Single Room (En-suite) - R5600/Month",
+      label: "Single Room (2x sharing En-suite) - R5800/Month",
+      value: "Single Room (2x sharing En-suite) - R5800/Month",
     },
     {
       label: "Sharing Room (En-suite) - R3300/Month",
       value: "Sharing Room (En-suite) - R3300/Month",
     },
-
+    {
+      label: "82 Rabe Single Room (4) - R4000/Month",
+      value: "82 Rabe Single Room (4) - R4000/Month",
+    },
+    {
+      label: "Single Room (2x sharing) - R5600/Month",
+      value: "Single Room (2x sharing) - R5600/Month",
+    },
     {
       label: "Sharing Room - R2800/Month",
       value: "Sharing Room - R2800/Month",
     },
     {
-      label: "Sharing Room (Voor Street) - R2300/Month",
-      value: "Sharing Room (Voor Street) - R2300/Month",
+      label: "Voor Single Room (4) - R4000/Month",
+      value: "Voor Single Room (4) - R4000/Month",
+    },
+    {
+      label: "Voor Sharing Room - R2300/Month",
+      value: "Voor Sharing Room - R2300/Month",
+    },
+    {
+      label: "86 Hooge Single Room (En-suite) - R6000/Month",
+      value: "86 Hooge Single Room (En-suite) - R6000/Month",
+    },
+    {
+      label: "86 Hooge Single Room - R5800/Month",
+      value: "86 Hooge Single Room - R5800/Month",
     },
   ],
   Polokwane: [
     {
-      label: "Single Room - R5600/Month",
-      value: "Single Room - R5600/Month",
+      label: "Single Room - R5800/Month",
+      value: "Single Room - R5800/Month",
     },
     {
-      label: "Sharing Room - R2800/Month",
-      value: "Sharing Room - R2800/Month",
+      label: "Sharing Room - R3000/Month",
+      value: "Sharing Room - R3000/Month",
     },
   ],
 };
