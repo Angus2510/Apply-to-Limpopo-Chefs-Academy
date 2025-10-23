@@ -28,40 +28,40 @@ import { studyDetailsSchema, NewApplyInitialValuesType } from "@/schemas";
 const accommodationOptions = {
   Mokopane: [
     {
-      label: "Single Room (2x sharing En-suite) - R5800/Month",
-      value: "Single Room (2x sharing En-suite) - R5800/Month",
+      label: "Rabe Single Room (En-suite) - R5800/Month",
+      value: "Rabe Single Room (En-suite) - R5800/Month",
     },
     {
-      label: "Sharing Room (En-suite) - R3300/Month",
-      value: "Sharing Room (En-suite) - R3300/Month",
+      label: "Rabe Sharing Room (En-suite) - R3300/Month",
+      value: "Rabe Sharing Room (En-suite) - R3300/Month",
     },
     {
-      label: "82 Rabe Single Room (4) - R4000/Month",
-      value: "82 Rabe Single Room (4) - R4000/Month",
+      label: "Rabe Single Room – R4000/Month",
+      value: "Rabe Single Room – R4000/Month",
     },
     {
-      label: "Single Room (2x sharing) - R5600/Month",
-      value: "Single Room (2x sharing) - R5600/Month",
+      label: "Rabe Single Room - R5600/Month",
+      value: "Rabe Single Room - R5600/Month",
     },
     {
-      label: "Sharing Room - R2800/Month",
-      value: "Sharing Room - R2800/Month",
+      label: "Rabe Sharing Room - R2800/Month",
+      value: "Rabe Sharing Room - R2800/Month",
     },
     {
-      label: "Voor Single Room (4) - R4000/Month",
-      value: "Voor Single Room (4) - R4000/Month",
+      label: "Voor Single Room – R4000/Month",
+      value: "Voor Single Room – R4000/Month",
     },
     {
       label: "Voor Sharing Room - R2300/Month",
       value: "Voor Sharing Room - R2300/Month",
     },
     {
-      label: "86 Hooge Single Room (En-suite) - R6000/Month",
-      value: "86 Hooge Single Room (En-suite) - R6000/Month",
+      label: "Hooge Single Room (En-suite) – R6000/Month",
+      value: "Hooge Single Room (En-suite) – R6000/Month",
     },
     {
-      label: "86 Hooge Single Room - R5800/Month",
-      value: "86 Hooge Single Room - R5800/Month",
+      label: "Hooge Single Room – R5800/Month",
+      value: "Hooge Single Room – R5800/Month",
     },
   ],
   Polokwane: [
