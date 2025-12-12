@@ -110,9 +110,9 @@ export default function SummaryPage() {
               <p>ID Number: {newApplyData?.studentIdNumber || ""}</p>
               <p>Email: {newApplyData?.emailAddress || ""}</p>
               <p>Phone: {newApplyData?.phone || ""}</p>
-              <p>Whatsapp Number: {newApplyData?.whatsapp || ""}</p>
+              <p>WhatsApp Number: {newApplyData?.whatsapp || ""}</p>
               <p>Gender: {newApplyData?.studentGender || ""}</p>
-              <p>Address: {newApplyData?.studentAddress || ""}</p>
+              <p>Residential Address: {newApplyData?.studentAddress || ""}</p>
               <p>City: {newApplyData?.studentCity || ""}</p>
               <p>Province: {newApplyData?.studentProvince || ""}</p>
               <p>Postal Code: {newApplyData?.studentPostalCode || ""}</p>

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddApplyContext } from "@/contexts/applyContext";
@@ -24,6 +24,12 @@ import {
 import { useRouter } from "next/navigation";
 import "react-phone-number-input/style.css";
 import { studyDetailsSchema, NewApplyInitialValuesType } from "@/schemas";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const accommodationOptions = {
   Mokopane: [
@@ -91,9 +97,12 @@ export default function StudyDetailsForm() {
     }
   }, [dataLoaded, newApplyData, form]);
 
-  const handleChange = (name: string, value: any) => {
-    updateNewApplyDetails({ [name]: value });
-  };
+  const handleChange = useCallback(
+    (name: string, value: any) => {
+      updateNewApplyDetails({ [name]: value });
+    },
+    [updateNewApplyDetails]
+  );
 
   const handleSubmit = (values: NewApplyInitialValuesType) => {
     updateNewApplyDetails(values);
@@ -102,13 +111,27 @@ export default function StudyDetailsForm() {
 
   const selectedCampus = form.watch("campusChoice");
   const needAccommodation = form.watch("needAccommodation");
+  const selectedCourse = form.watch("choiceOfCourse");
+  const hasPassport = form.watch("hasPassport");
+
+  const isInternationalExchange =
+    selectedCourse ===
+    "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months";
 
   useEffect(() => {
     if (!needAccommodation) {
       form.setValue("accommodation", "");
-      handleChange("accommodation", "");
     }
   }, [needAccommodation, form]);
+
+  useEffect(() => {
+    if (!isInternationalExchange) {
+      form.setValue("hasPassport", undefined);
+      form.setValue("passportNumber", "");
+      form.setValue("passportIssueDate", "");
+      form.setValue("passportExpiryDate", "");
+    }
+  }, [isInternationalExchange, form]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
@@ -197,6 +220,123 @@ export default function StudyDetailsForm() {
                   </FormItem>
                 )}
               />
+
+              {isInternationalExchange && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="hasPassport"
+                    render={({ field }) => (
+                      <FormItem className="col-span-2">
+                        <FormLabel>Do you have a valid passport?</FormLabel>
+                        <FormControl>
+                          <RadioGroup
+                            onValueChange={(value) => {
+                              field.onChange(value === "Yes");
+                              handleChange("hasPassport", value === "Yes");
+                            }}
+                            value={field.value ? "Yes" : "No"}
+                            className="flex flex-col space-y-1"
+                          >
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="Yes" />
+                              </FormControl>
+                              <FormLabel className="font-normal">Yes</FormLabel>
+                            </FormItem>
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="No" />
+                              </FormControl>
+                              <FormLabel className="font-normal">No</FormLabel>
+                            </FormItem>
+                          </RadioGroup>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
+
+              {isInternationalExchange && hasPassport === true && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="passportNumber"
+                    render={({ field }) => (
+                      <FormItem className="col-span-2">
+                        <FormLabel>Passport Number</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Enter passport number"
+                            {...field}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              handleChange("passportNumber", e.target.value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="passportIssueDate"
+                    render={({ field }) => (
+                      <FormItem className="col-span-2 md:col-span-1">
+                        <FormLabel>Passport Issue Date</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="date"
+                            {...field}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              handleChange("passportIssueDate", e.target.value);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="passportExpiryDate"
+                    render={({ field }) => (
+                      <FormItem className="col-span-2 md:col-span-1">
+                        <FormLabel>Passport Expiry Date</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="date"
+                            {...field}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              handleChange(
+                                "passportExpiryDate",
+                                e.target.value
+                              );
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
+
+              {isInternationalExchange && hasPassport === false && (
+                <div className="col-span-2 p-4 border border-red-300 bg-red-50 rounded-md">
+                  <p className="text-red-800 font-medium">Important Note</p>
+                  <p className="text-red-700 text-sm mt-2">
+                    You must have a valid passport to apply for the
+                    International Exchange Program Diploma. Please obtain a
+                    passport before proceeding with your application.
+                  </p>
+                </div>
+              )}
 
               <FormField
                 control={form.control}

@@ -48,6 +48,10 @@ export const studyDetailsSchema = z.object({
       "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
     ])
     .optional(),
+  hasPassport: z.boolean().optional(),
+  passportNumber: z.string().optional(),
+  passportIssueDate: z.string().optional(),
+  passportExpiryDate: z.string().optional(),
   campusChoice: z.enum(["Mokopane", "Polokwane"]),
   intake: z.enum(["January", "July"]),
   needAccommodation: z.boolean().optional(),
@@ -98,6 +102,10 @@ export const newApplyInitialValuesSchema = z.object({
       "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
     ])
     .optional(),
+  hasPassport: z.boolean().optional(),
+  passportNumber: z.string().optional(),
+  passportIssueDate: z.string().optional(),
+  passportExpiryDate: z.string().optional(),
   campusChoice: z.enum(["Mokopane", "Polokwane"]).optional(),
   intake: z.enum(["January", "July"]).optional(),
   needAccommodation: z.boolean().optional(),

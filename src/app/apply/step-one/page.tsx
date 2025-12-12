@@ -225,11 +225,11 @@ export default function StepOneForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Whatsapp Number <span className="text-red-500">*</span>
+                      WhatsApp Number <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter your Whatsapp number"
+                        placeholder="Enter your WhatsApp number"
                         type="text"
                         {...field}
                         onChange={(e) => {
@@ -248,11 +248,12 @@ export default function StepOneForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Student Address <span className="text-red-500">*</span>
+                      Residential Address{" "}
+                      <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Student Address"
+                        placeholder="Residential Address"
                         type="text"
                         {...field}
                         onChange={(e) => {
