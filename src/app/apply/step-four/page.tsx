@@ -31,53 +31,79 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
+const cruiseShipCourse =
+  "International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months";
+
+const getAgeFromDateOfBirth = (dateOfBirth?: string) => {
+  if (!dateOfBirth) return null;
+
+  const birthDate = new Date(dateOfBirth);
+  if (Number.isNaN(birthDate.getTime())) return null;
+
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDifference = today.getMonth() - birthDate.getMonth();
+
+  if (
+    monthDifference < 0 ||
+    (monthDifference === 0 && today.getDate() < birthDate.getDate())
+  ) {
+    age -= 1;
+  }
+
+  return age;
+};
+
+const getBooleanRadioValue = (value?: boolean) =>
+  value === true ? "Yes" : value === false ? "No" : "";
+
 const accommodationOptions = {
   Mokopane: [
     {
-      label: "Rabe Single Room (En-suite) - R5800/Month",
-      value: "Rabe Single Room (En-suite) - R5800/Month",
+      label: "Single Room (Hooge 86) - R5 800.00/Month",
+      value: "Single Room (Hooge 86) - R5 800.00/Month",
     },
     {
-      label: "Rabe Sharing Room (En-suite) - R3300/Month",
-      value: "Rabe Sharing Room (En-suite) - R3300/Month",
+      label: "Single En-suite Room (Hooge 86) - R6 000.00/Month",
+      value: "Single En-suite Room (Hooge 86) - R6 000.00/Month",
     },
     {
-      label: "Rabe Single Room – R4000/Month",
-      value: "Rabe Single Room – R4000/Month",
+      label: "Sharing Room (Voor Street) - R2 300.00/Month",
+      value: "Sharing Room (Voor Street) - R2 300.00/Month",
     },
     {
-      label: "Rabe Single Room - R5600/Month",
-      value: "Rabe Single Room - R5600/Month",
+      label: "Single Room (Voor Street) - R4 000.00/Month",
+      value: "Single Room (Voor Street) - R4 000.00/Month",
     },
     {
-      label: "Rabe Sharing Room - R2800/Month",
-      value: "Rabe Sharing Room - R2800/Month",
+      label: "Single Room (Rabe Street) - R4 150.00/Month",
+      value: "Single Room (Rabe Street) - R4 150.00/Month",
     },
     {
-      label: "Voor Single Room – R4000/Month",
-      value: "Voor Single Room – R4000/Month",
+      label: "Sharing Room (MKP) - R2 950.00/Month",
+      value: "Sharing Room (MKP) - R2 950.00/Month",
     },
     {
-      label: "Voor Sharing Room - R2300/Month",
-      value: "Voor Sharing Room - R2300/Month",
+      label: "Single (Sharing) Room (MKP) - R5 900.00/Month",
+      value: "Single (Sharing) Room (MKP) - R5 900.00/Month",
     },
     {
-      label: "Hooge Single Room (En-suite) – R6000/Month",
-      value: "Hooge Single Room (En-suite) – R6000/Month",
+      label: "Sharing En-suite Room (MKP) - R3 450.00/Month",
+      value: "Sharing En-suite Room (MKP) - R3 450.00/Month",
     },
     {
-      label: "Hooge Single Room – R5800/Month",
-      value: "Hooge Single Room – R5800/Month",
+      label: "Single En-suite Room (MKP) - R5 950.00/Month",
+      value: "Single En-suite Room (MKP) - R5 950.00/Month",
     },
   ],
   Polokwane: [
     {
-      label: "Single Room - R5800/Month",
-      value: "Single Room - R5800/Month",
+      label: "Single Room (PLK) - R5 950.00/Month",
+      value: "Single Room (PLK) - R5 950.00/Month",
     },
     {
-      label: "Sharing Room - R3000/Month",
-      value: "Sharing Room - R3000/Month",
+      label: "Sharing Room (PLK) - R3 150.00/Month",
+      value: "Sharing Room (PLK) - R3 150.00/Month",
     },
   ],
 };
@@ -104,21 +130,32 @@ export default function StudyDetailsForm() {
     [updateNewApplyDetails],
   );
 
-  const handleSubmit = (values: NewApplyInitialValuesType) => {
-    updateNewApplyDetails(values);
-    router.push("/apply/review");
-  };
-
   const selectedCampus = form.watch("campusChoice");
   const needAccommodation = form.watch("needAccommodation");
   const selectedCourse = form.watch("choiceOfCourse");
   const hasPassport = form.watch("hasPassport");
+  const calculatedAge = getAgeFromDateOfBirth(newApplyData.dateOfBirth);
+  const requiresCruiseScreening = selectedCourse === cruiseShipCourse;
+  const isUnderMinimumAge = calculatedAge !== null && calculatedAge < 20;
+
+  const handleSubmit = (values: NewApplyInitialValuesType) => {
+    if (requiresCruiseScreening && isUnderMinimumAge) {
+      form.setError("isTwentyOrOlder", {
+        type: "manual",
+        message:
+          "The applicant is under 20 years old based on the date of birth and cannot proceed with this programme.",
+      });
+      return;
+    }
+
+    updateNewApplyDetails(values);
+    router.push("/apply/review");
+  };
 
   const requiresPassport =
     selectedCourse ===
       "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months" ||
-    selectedCourse ===
-      "International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months";
+    selectedCourse === cruiseShipCourse;
 
   useEffect(() => {
     if (!needAccommodation) {
@@ -134,6 +171,18 @@ export default function StudyDetailsForm() {
       form.setValue("passportExpiryDate", "");
     }
   }, [requiresPassport, form]);
+
+  useEffect(() => {
+    if (!requiresCruiseScreening) {
+      form.setValue("isTwentyOrOlder", undefined);
+      form.setValue("hasGrade11OrHigher", undefined);
+      form.setValue("isSouthAfricanCitizen", undefined);
+      form.setValue("hasCriminalRecord", undefined);
+      form.setValue("isBmi35OrBelow", undefined);
+      form.setValue("consentsDrugScreening", undefined);
+      form.setValue("acceptsCruiseShipHours", undefined);
+    }
+  }, [requiresCruiseScreening, form]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
@@ -246,7 +295,7 @@ export default function StudyDetailsForm() {
                               field.onChange(value === "Yes");
                               handleChange("hasPassport", value === "Yes");
                             }}
-                            value={field.value ? "Yes" : "No"}
+                            value={getBooleanRadioValue(field.value)}
                             className="flex flex-col space-y-1"
                           >
                             <FormItem className="flex items-center space-x-3 space-y-0">
@@ -267,6 +316,341 @@ export default function StudyDetailsForm() {
                       </FormItem>
                     )}
                   />
+
+                  {requiresCruiseScreening && calculatedAge !== null && (
+                    <div
+                      className={`col-span-2 rounded-md border p-4 ${
+                        isUnderMinimumAge
+                          ? "border-red-300 bg-red-50"
+                          : "border-emerald-300 bg-emerald-50"
+                      }`}
+                    >
+                      <p
+                        className={`font-medium ${
+                          isUnderMinimumAge
+                            ? "text-red-800"
+                            : "text-emerald-800"
+                        }`}
+                      >
+                        Calculated age from date of birth: {calculatedAge}
+                      </p>
+                      {isUnderMinimumAge && (
+                        <p className="mt-2 text-sm text-red-700">
+                          Applicants under 20 years old cannot continue with the
+                          International Cruise Ship Culinary Program.
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  {requiresCruiseScreening && (
+                    <>
+                      <FormField
+                        control={form.control}
+                        name="isTwentyOrOlder"
+                        render={({ field }) => (
+                          <FormItem className="col-span-2">
+                            <FormLabel>
+                              Are you 20 years of age or older?
+                            </FormLabel>
+                            <FormControl>
+                              <RadioGroup
+                                onValueChange={(value) => {
+                                  field.onChange(value === "Yes");
+                                  handleChange(
+                                    "isTwentyOrOlder",
+                                    value === "Yes",
+                                  );
+                                }}
+                                value={getBooleanRadioValue(field.value)}
+                                className="flex flex-col space-y-1"
+                              >
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="Yes" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    Yes
+                                  </FormLabel>
+                                </FormItem>
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="No" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    No
+                                  </FormLabel>
+                                </FormItem>
+                              </RadioGroup>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="hasGrade11OrHigher"
+                        render={({ field }) => (
+                          <FormItem className="col-span-2">
+                            <FormLabel>
+                              Do you have a Grade 11 qualification or higher?
+                            </FormLabel>
+                            <FormControl>
+                              <RadioGroup
+                                onValueChange={(value) => {
+                                  field.onChange(value === "Yes");
+                                  handleChange(
+                                    "hasGrade11OrHigher",
+                                    value === "Yes",
+                                  );
+                                }}
+                                value={getBooleanRadioValue(field.value)}
+                                className="flex flex-col space-y-1"
+                              >
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="Yes" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    Yes
+                                  </FormLabel>
+                                </FormItem>
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="No" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    No
+                                  </FormLabel>
+                                </FormItem>
+                              </RadioGroup>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="isSouthAfricanCitizen"
+                        render={({ field }) => (
+                          <FormItem className="col-span-2">
+                            <FormLabel>
+                              Are you a South African citizen?
+                            </FormLabel>
+                            <FormControl>
+                              <RadioGroup
+                                onValueChange={(value) => {
+                                  field.onChange(value === "Yes");
+                                  handleChange(
+                                    "isSouthAfricanCitizen",
+                                    value === "Yes",
+                                  );
+                                }}
+                                value={getBooleanRadioValue(field.value)}
+                                className="flex flex-col space-y-1"
+                              >
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="Yes" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    Yes
+                                  </FormLabel>
+                                </FormItem>
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="No" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    No
+                                  </FormLabel>
+                                </FormItem>
+                              </RadioGroup>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="hasCriminalRecord"
+                        render={({ field }) => (
+                          <FormItem className="col-span-2">
+                            <FormLabel>
+                              Do you have a criminal record?
+                            </FormLabel>
+                            <FormControl>
+                              <RadioGroup
+                                onValueChange={(value) => {
+                                  field.onChange(value === "Yes");
+                                  handleChange(
+                                    "hasCriminalRecord",
+                                    value === "Yes",
+                                  );
+                                }}
+                                value={getBooleanRadioValue(field.value)}
+                                className="flex flex-col space-y-1"
+                              >
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="Yes" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    Yes
+                                  </FormLabel>
+                                </FormItem>
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="No" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    No
+                                  </FormLabel>
+                                </FormItem>
+                              </RadioGroup>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="isBmi35OrBelow"
+                        render={({ field }) => (
+                          <FormItem className="col-span-2">
+                            <FormLabel>
+                              Is your Body Mass Index (BMI) 35 or below?
+                            </FormLabel>
+                            <FormControl>
+                              <RadioGroup
+                                onValueChange={(value) => {
+                                  field.onChange(value === "Yes");
+                                  handleChange(
+                                    "isBmi35OrBelow",
+                                    value === "Yes",
+                                  );
+                                }}
+                                value={getBooleanRadioValue(field.value)}
+                                className="flex flex-col space-y-1"
+                              >
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="Yes" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    Yes
+                                  </FormLabel>
+                                </FormItem>
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="No" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    No
+                                  </FormLabel>
+                                </FormItem>
+                              </RadioGroup>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="consentsDrugScreening"
+                        render={({ field }) => (
+                          <FormItem className="col-span-2">
+                            <FormLabel>
+                              Do you consent to undergoing a drug screening test
+                              conducted by a registered medical provider?
+                            </FormLabel>
+                            <FormControl>
+                              <RadioGroup
+                                onValueChange={(value) => {
+                                  field.onChange(value === "Yes");
+                                  handleChange(
+                                    "consentsDrugScreening",
+                                    value === "Yes",
+                                  );
+                                }}
+                                value={getBooleanRadioValue(field.value)}
+                                className="flex flex-col space-y-1"
+                              >
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="Yes" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    Yes
+                                  </FormLabel>
+                                </FormItem>
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="No" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    No
+                                  </FormLabel>
+                                </FormItem>
+                              </RadioGroup>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="acceptsCruiseShipHours"
+                        render={({ field }) => (
+                          <FormItem className="col-span-2">
+                            <FormLabel>
+                              Are you willing and able to work long hours (up to
+                              12 hours per day), including extended periods
+                              without scheduled days off, while employed on a
+                              cruise ship?
+                            </FormLabel>
+                            <FormControl>
+                              <RadioGroup
+                                onValueChange={(value) => {
+                                  field.onChange(value === "Yes");
+                                  handleChange(
+                                    "acceptsCruiseShipHours",
+                                    value === "Yes",
+                                  );
+                                }}
+                                value={getBooleanRadioValue(field.value)}
+                                className="flex flex-col space-y-1"
+                              >
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="Yes" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    Yes
+                                  </FormLabel>
+                                </FormItem>
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="No" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    No
+                                  </FormLabel>
+                                </FormItem>
+                              </RadioGroup>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </>
+                  )}
                 </>
               )}
 

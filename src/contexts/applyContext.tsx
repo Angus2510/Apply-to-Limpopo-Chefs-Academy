@@ -16,7 +16,9 @@ const defaultApply: NewApplyInitialValuesType = {
   emailAddress: "",
   studentName: "",
   studentSurname: "",
+  dateOfBirth: "",
   phone: "",
+  whatsapp: "",
   studentIdNumber: "",
   studentGender: "Male",
   studentAddress: "",
@@ -34,6 +36,14 @@ const defaultApply: NewApplyInitialValuesType = {
   subjects: "",
   choiceOfCourse:
     "Award: Introduction to the Hospitality Industry & Cooking - 05 Months",
+  hasPassport: undefined,
+  isTwentyOrOlder: undefined,
+  hasGrade11OrHigher: undefined,
+  isSouthAfricanCitizen: undefined,
+  hasCriminalRecord: undefined,
+  isBmi35OrBelow: undefined,
+  consentsDrugScreening: undefined,
+  acceptsCruiseShipHours: undefined,
   campusChoice: "Mokopane",
   intake: "January",
   needAccommodation: false,
@@ -48,7 +58,7 @@ const LOCAL_STORAGE_KEY = "multi-step-form-demo-newApplyData";
 type AddApplyContextType = {
   newApplyData: NewApplyInitialValuesType;
   updateNewApplyDetails: (
-    applyDetails: Partial<NewApplyInitialValuesType>
+    applyDetails: Partial<NewApplyInitialValuesType>,
   ) => void;
   dataLoaded: boolean;
   resetLocalStorage: () => void;
@@ -80,11 +90,11 @@ export const AddApplyContextProvider = ({
     (applyDetails: Partial<NewApplyInitialValuesType>) => {
       setNewApplyData({ ...newApplyData, ...applyDetails });
     },
-    [newApplyData]
+    [newApplyData],
   );
 
   const saveDataToLocalStorage = (
-    currentApplyData: NewApplyInitialValuesType
+    currentApplyData: NewApplyInitialValuesType,
   ) => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentApplyData));
   };
@@ -93,7 +103,7 @@ export const AddApplyContextProvider = ({
     const loadedDataString = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (!loadedDataString) return setNewApplyData(defaultApply);
     const validated = newApplyInitialValuesSchema.safeParse(
-      JSON.parse(loadedDataString)
+      JSON.parse(loadedDataString),
     );
 
     if (validated.success) {
@@ -115,7 +125,7 @@ export const AddApplyContextProvider = ({
       updateNewApplyDetails,
       resetLocalStorage,
     }),
-    [newApplyData, dataLoaded, updateNewApplyDetails]
+    [newApplyData, dataLoaded, updateNewApplyDetails],
   );
 
   return (
@@ -129,7 +139,7 @@ export function useAddApplyContext() {
   const context = useContext(AddApplyContext);
   if (context === null) {
     throw new Error(
-      "useAddApplyContext must be used within a AddApplyContextProvider"
+      "useAddApplyContext must be used within a AddApplyContextProvider",
     );
   }
   return context;

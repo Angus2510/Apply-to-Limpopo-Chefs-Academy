@@ -78,6 +78,7 @@ const generatePDF = async (
       {
         Name: data.studentName || "",
         Surname: data.studentSurname || "",
+        "Date of Birth": data.dateOfBirth || "",
         "ID Number": data.studentIdNumber || "",
         Email: data.emailAddress || "",
         Phone: data.phone || "",

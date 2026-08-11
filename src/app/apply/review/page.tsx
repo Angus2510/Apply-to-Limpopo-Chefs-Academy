@@ -109,6 +109,7 @@ export default function SummaryPage() {
               <h3 className="font-semibold">Student Details</h3>
               <p>Name: {newApplyData?.studentName || ""}</p>
               <p>Surname: {newApplyData?.studentSurname || ""}</p>
+              <p>Date of Birth: {newApplyData?.dateOfBirth || ""}</p>
               <p>ID Number: {newApplyData?.studentIdNumber || ""}</p>
               <p>Email: {newApplyData?.emailAddress || ""}</p>
               <p>Phone: {newApplyData?.phone || ""}</p>
