@@ -101,7 +101,7 @@ export default function StudyDetailsForm() {
     (name: string, value: any) => {
       updateNewApplyDetails({ [name]: value });
     },
-    [updateNewApplyDetails]
+    [updateNewApplyDetails],
   );
 
   const handleSubmit = (values: NewApplyInitialValuesType) => {
@@ -114,9 +114,11 @@ export default function StudyDetailsForm() {
   const selectedCourse = form.watch("choiceOfCourse");
   const hasPassport = form.watch("hasPassport");
 
-  const isInternationalExchange =
+  const requiresPassport =
     selectedCourse ===
-    "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months";
+      "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months" ||
+    selectedCourse ===
+      "International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months";
 
   useEffect(() => {
     if (!needAccommodation) {
@@ -125,13 +127,13 @@ export default function StudyDetailsForm() {
   }, [needAccommodation, form]);
 
   useEffect(() => {
-    if (!isInternationalExchange) {
+    if (!requiresPassport) {
       form.setValue("hasPassport", undefined);
       form.setValue("passportNumber", "");
       form.setValue("passportIssueDate", "");
       form.setValue("passportExpiryDate", "");
     }
-  }, [isInternationalExchange, form]);
+  }, [requiresPassport, form]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
@@ -207,6 +209,15 @@ export default function StudyDetailsForm() {
                         </FormItem>
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
+                            <RadioGroupItem value="International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            International Cruise Ship Culinary Program Diploma:
+                            Food Preparation &amp; Culinary Arts - 20 Months
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
                             <RadioGroupItem value="Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years" />
                           </FormControl>
                           <FormLabel className="font-normal">
@@ -221,7 +232,7 @@ export default function StudyDetailsForm() {
                 )}
               />
 
-              {isInternationalExchange && (
+              {requiresPassport && (
                 <>
                   <FormField
                     control={form.control}
@@ -259,7 +270,7 @@ export default function StudyDetailsForm() {
                 </>
               )}
 
-              {isInternationalExchange && hasPassport === true && (
+              {requiresPassport && hasPassport === true && (
                 <>
                   <FormField
                     control={form.control}
@@ -315,7 +326,7 @@ export default function StudyDetailsForm() {
                               field.onChange(e);
                               handleChange(
                                 "passportExpiryDate",
-                                e.target.value
+                                e.target.value,
                               );
                             }}
                           />
@@ -327,12 +338,12 @@ export default function StudyDetailsForm() {
                 </>
               )}
 
-              {isInternationalExchange && hasPassport === false && (
+              {requiresPassport && hasPassport === false && (
                 <div className="col-span-2 p-4 border border-red-300 bg-red-50 rounded-md">
                   <p className="text-red-800 font-medium">Important Note</p>
                   <p className="text-red-700 text-sm mt-2">
-                    You must have a valid passport to apply for the
-                    International Exchange Program Diploma. Please obtain a
+                    You must have a valid passport to apply for this
+                    international cruise or exchange programme. Please obtain a
                     passport before proceeding with your application.
                   </p>
                 </div>
@@ -439,7 +450,7 @@ export default function StudyDetailsForm() {
                                   {option.label}
                                 </FormLabel>
                               </FormItem>
-                            )
+                            ),
                           )}
                         </RadioGroup>
                       </FormControl>

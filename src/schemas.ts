@@ -45,6 +45,7 @@ export const studyDetailsSchema = z.object({
       "Diploma: Food Preparation and Culinary Arts - 17 Months",
       "Pastry Diploma: Professional Patisserie - 17 Months",
       "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months",
+      "International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months",
       "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
     ])
     .optional(),
@@ -99,6 +100,7 @@ export const newApplyInitialValuesSchema = z.object({
       "Diploma: Food Preparation and Culinary Arts - 17 Months",
       "Pastry Diploma: Professional Patisserie - 17 Months",
       "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months",
+      "International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months",
       "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
     ])
     .optional(),

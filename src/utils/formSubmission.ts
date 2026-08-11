@@ -13,7 +13,7 @@ declare module "jspdf" {
 }
 
 export const handleFinalSubmission = async (
-  data: NewApplyInitialValuesType
+  data: NewApplyInitialValuesType,
 ): Promise<void> => {
   try {
     console.log("Generating PDF...");
@@ -29,7 +29,7 @@ export const handleFinalSubmission = async (
 };
 
 const generatePDF = async (
-  data: NewApplyInitialValuesType
+  data: NewApplyInitialValuesType,
 ): Promise<Buffer> => {
   try {
     const doc = new jsPDF();
@@ -39,7 +39,7 @@ const generatePDF = async (
     const drawSection = (
       title: string,
       content: Record<string, string | boolean>,
-      startY: number
+      startY: number,
     ) => {
       doc.setFontSize(16).setTextColor(40, 40, 40).text(title, margin, startY);
       const rows = Object.entries(content).map(([key, value]) => [
@@ -88,7 +88,7 @@ const generatePDF = async (
         Province: data.studentProvince || "",
         "Postal Code": data.studentPostalCode || "",
       },
-      yPos
+      yPos,
     );
 
     yPos = drawSection(
@@ -100,7 +100,7 @@ const generatePDF = async (
         Surname: data.guardianSurname || "",
         Relation: data.guardianRelation || "",
       },
-      yPos + 10
+      yPos + 10,
     );
 
     yPos = drawSection(
@@ -111,7 +111,7 @@ const generatePDF = async (
         "Year Passed": data.passedYear || "",
         Subjects: data.subjects || "",
       },
-      yPos + 10
+      yPos + 10,
     );
 
     yPos = drawSection(
@@ -122,7 +122,7 @@ const generatePDF = async (
         "Need Accommodation": data.needAccommodation ? "Yes" : "No",
         "Accommodation Option": data.accommodation || "",
       },
-      yPos + 10
+      yPos + 10,
     );
 
     const pdfBuffer = doc.output("arraybuffer");
@@ -135,16 +135,28 @@ const generatePDF = async (
 
 const sendEmail = async (
   pdfBuffer: Buffer,
-  data: NewApplyInitialValuesType
+  data: NewApplyInitialValuesType,
 ) => {
   try {
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPort = process.env.SMTP_PORT;
+    const emailUser = process.env.EMAIL_USER;
+    const emailPass = process.env.EMAIL_PASS;
+
+    if (!smtpHost || !smtpPort || !emailUser || !emailPass) {
+      console.warn(
+        "SMTP is not configured. Skipping email delivery and keeping the submission flow alive.",
+      );
+      return;
+    }
+
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
+      host: smtpHost,
+      port: Number(smtpPort),
       secure: true,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: emailUser,
+        pass: emailPass,
       },
       tls: {
         // Add this configuration to accept self-signed certificates
@@ -164,7 +176,7 @@ const sendEmail = async (
 
     // Mail options for the campus email
     const mailOptionsCampus = {
-      from: process.env.EMAIL_USER,
+      from: emailUser,
       to: campusEmail,
       subject: `Application Form for ${data.studentName} ${data.studentSurname}`,
       text: `Application form submitted by ${data.studentName} ${data.studentSurname}. Attached is the application PDF.`,
@@ -182,7 +194,7 @@ const sendEmail = async (
     console.log("Campus email sent successfully:", infoCampus.messageId);
 
     const mailOptionsStudent = {
-      from: process.env.EMAIL_USER,
+      from: emailUser,
       to: data.emailAddress, // Send to the student's email address
       subject: `Your Application Submission - ${data.studentName} ${data.studentSurname}`,
       text: `Dear ${data.studentName},\n\nThank you for submitting your application to Limpopo Chefs Academy. We have successfully received your application, and our team will review it shortly.\n\nAttached is a copy of your application form for your reference.\n\nBest regards,\nLimpopo Chefs Academy\n\n---\nThis is an automated message, please do not reply to this email.`,

@@ -6,15 +6,24 @@ import axios from "axios";
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
+    const captchaSecret = process.env.RECAPTCHA_SECRET_KEY;
 
     // Extract the captcha token from the request
     const { captchaToken, ...formData } = data;
+
+    if (!captchaSecret) {
+      await handleFinalSubmission(formData);
+      return NextResponse.json({
+        message: "Final submission successful",
+        captchaSkipped: true,
+      });
+    }
 
     // Check if captcha token exists
     if (!captchaToken) {
       return NextResponse.json(
         { message: "CAPTCHA verification required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -24,17 +33,17 @@ export async function POST(req: NextRequest) {
       null,
       {
         params: {
-          secret: process.env.RECAPTCHA_SECRET_KEY,
+          secret: captchaSecret,
           response: captchaToken,
         },
-      }
+      },
     );
 
     // If verification failed, return an error
     if (!captchaVerification.data.success) {
       return NextResponse.json(
         { message: "CAPTCHA verification failed" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -45,7 +54,7 @@ export async function POST(req: NextRequest) {
     console.error("Error during final submission:", error);
     return NextResponse.json(
       { message: "Error during final submission" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -39,6 +39,8 @@ export default function SummaryPage() {
   const [showAlert, setShowAlert] = useState(false);
   const [captchaValue, setCaptchaValue] = useState<string | null>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+  const captchaEnabled = Boolean(siteKey);
 
   const checkRequiredFields = () => {
     for (const [step, schema] of Object.entries(schemaMap)) {
@@ -51,7 +53,7 @@ export default function SummaryPage() {
   };
 
   const handleFinalSubmit = async () => {
-    if (!captchaValue) {
+    if (captchaEnabled && !captchaValue) {
       alert("Please verify that you are not a robot");
       return;
     }
@@ -69,7 +71,7 @@ export default function SummaryPage() {
             ...newApplyData,
             captchaToken: captchaValue,
           },
-          { timeout: 60000 }
+          { timeout: 60000 },
         );
 
         setShowAlert(true);
@@ -163,20 +165,31 @@ export default function SummaryPage() {
 
           {/* Add reCAPTCHA here */}
           <div className="mt-6 mb-4 flex flex-col items-center">
-            <p className="text-sm text-gray-600 mb-2">
-              Please verify that you&#39;re not a robot
-            </p>
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
-              onChange={handleCaptchaChange}
-            />
+            {captchaEnabled ? (
+              <>
+                <p className="mb-2 text-sm text-gray-600">
+                  Please verify that you&#39;re not a robot
+                </p>
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={siteKey as string}
+                  onChange={handleCaptchaChange}
+                />
+              </>
+            ) : (
+              <p className="max-w-md rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm text-amber-900">
+                CAPTCHA is not configured for this environment, so you can
+                submit without verification while developing locally.
+              </p>
+            )}
           </div>
 
           <div className="mt-4">
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button disabled={isLoading || !captchaValue}>
+                <Button
+                  disabled={isLoading || (captchaEnabled && !captchaValue)}
+                >
                   {isLoading ? "Submitting..." : "Submit"}
                 </Button>
               </AlertDialogTrigger>
