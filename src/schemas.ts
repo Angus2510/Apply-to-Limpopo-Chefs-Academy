@@ -1,10 +1,10 @@
 import z from "zod";
 
-const cruiseShipCourse =
-  "International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months";
+// const cruiseShipCourse =
+//   "International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months";
 const passportRequiredCourses = [
   "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months",
-  cruiseShipCourse,
+  // cruiseShipCourse,
 ] as const;
 
 const calculateAge = (dateOfBirth?: string) => {
@@ -27,8 +27,8 @@ const calculateAge = (dateOfBirth?: string) => {
   return age;
 };
 
-const isCruiseShipCourse = (choiceOfCourse?: string) =>
-  choiceOfCourse === cruiseShipCourse;
+// const isCruiseShipCourse = (choiceOfCourse?: string) =>
+//   choiceOfCourse === cruiseShipCourse;
 
 const isPassportRequiredCourse = (choiceOfCourse?: string) =>
   passportRequiredCourses.includes(
@@ -87,7 +87,7 @@ export const studyDetailsSchema = z
         "Diploma: Food Preparation and Culinary Arts - 17 Months",
         "Pastry Diploma: Professional Patisserie - 17 Months",
         "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months",
-        cruiseShipCourse,
+        // cruiseShipCourse,
         "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
       ])
       .optional(),
@@ -121,86 +121,86 @@ export const studyDetailsSchema = z
       });
     }
 
-    if (!isCruiseShipCourse(data.choiceOfCourse)) {
-      return;
-    }
+    // if (!isCruiseShipCourse(data.choiceOfCourse)) {
+    //   return;
+    // }
 
-    const age = calculateAge(data.dateOfBirth);
+    // const age = calculateAge(data.dateOfBirth);
 
-    if (age === null) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["isTwentyOrOlder"],
-        message:
-          "A valid date of birth is required to verify the age requirement.",
-      });
-    } else if (age < 20) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["isTwentyOrOlder"],
-        message:
-          "Applicants for this programme must be 20 years of age or older.",
-      });
-    }
+    // if (age === null) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     path: ["isTwentyOrOlder"],
+    //     message:
+    //       "A valid date of birth is required to verify the age requirement.",
+    //   });
+    // } else if (age < 20) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     path: ["isTwentyOrOlder"],
+    //     message:
+    //       "Applicants for this programme must be 20 years of age or older.",
+    //   });
+    // }
 
-    if (data.isTwentyOrOlder !== true) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["isTwentyOrOlder"],
-        message:
-          "Applicants must confirm that they are 20 years of age or older.",
-      });
-    }
+    // if (data.isTwentyOrOlder !== true) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     path: ["isTwentyOrOlder"],
+    //     message:
+    //       "Applicants must confirm that they are 20 years of age or older.",
+    //   });
+    // }
 
-    if (data.hasGrade11OrHigher !== true) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["hasGrade11OrHigher"],
-        message: "A Grade 11 qualification or higher is required.",
-      });
-    }
+    // if (data.hasGrade11OrHigher !== true) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     path: ["hasGrade11OrHigher"],
+    //     message: "A Grade 11 qualification or higher is required.",
+    //   });
+    // }
 
-    if (data.isSouthAfricanCitizen !== true) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["isSouthAfricanCitizen"],
-        message: "Only South African citizens may proceed with this programme.",
-      });
-    }
+    // if (data.isSouthAfricanCitizen !== true) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     path: ["isSouthAfricanCitizen"],
+    //     message: "Only South African citizens may proceed with this programme.",
+    //   });
+    // }
 
-    if (data.hasCriminalRecord !== false) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["hasCriminalRecord"],
-        message:
-          "Applicants with a criminal record may not proceed with this programme.",
-      });
-    }
+    // if (data.hasCriminalRecord !== false) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     path: ["hasCriminalRecord"],
+    //     message:
+    //       "Applicants with a criminal record may not proceed with this programme.",
+    //   });
+    // }
 
-    if (data.isBmi35OrBelow !== true) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["isBmi35OrBelow"],
-        message: "Applicants must have a BMI of 35 or below.",
-      });
-    }
+    // if (data.isBmi35OrBelow !== true) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     path: ["isBmi35OrBelow"],
+    //     message: "Applicants must have a BMI of 35 or below.",
+    //   });
+    // }
 
-    if (data.consentsDrugScreening !== true) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["consentsDrugScreening"],
-        message: "Consent to drug screening is required to proceed.",
-      });
-    }
+    // if (data.consentsDrugScreening !== true) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     path: ["consentsDrugScreening"],
+    //     message: "Consent to drug screening is required to proceed.",
+    //   });
+    // }
 
-    if (data.acceptsCruiseShipHours !== true) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["acceptsCruiseShipHours"],
-        message:
-          "Applicants must be willing and able to work long cruise ship hours to proceed.",
-      });
-    }
+    // if (data.acceptsCruiseShipHours !== true) {
+    //   ctx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     path: ["acceptsCruiseShipHours"],
+    //     message:
+    //       "Applicants must be willing and able to work long cruise ship hours to proceed.",
+    //   });
+    // }
   });
 
 export const educationFormSchema = z.object({
@@ -245,7 +245,7 @@ export const newApplyInitialValuesSchema = z.object({
       "Diploma: Food Preparation and Culinary Arts - 17 Months",
       "Pastry Diploma: Professional Patisserie - 17 Months",
       "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months",
-      "International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months",
+      // "International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months",
       "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
     ])
     .optional(),
