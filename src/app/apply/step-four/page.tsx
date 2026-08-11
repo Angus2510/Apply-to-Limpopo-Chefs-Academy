@@ -154,8 +154,8 @@ export default function StudyDetailsForm() {
 
   const requiresPassport =
     selectedCourse ===
-      "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months";
-    // || selectedCourse === cruiseShipCourse;
+    "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months";
+  // || selectedCourse === cruiseShipCourse;
 
   useEffect(() => {
     if (!needAccommodation) {
