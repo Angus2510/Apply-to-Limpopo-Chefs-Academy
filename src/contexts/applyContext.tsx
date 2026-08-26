@@ -44,6 +44,7 @@ const defaultApply: NewApplyInitialValuesType = {
   isBmi35OrBelow: undefined,
   consentsDrugScreening: undefined,
   acceptsCruiseShipHours: undefined,
+  agreesToInterview: undefined,
   campusChoice: "Mokopane",
   intake: "January",
   needAccommodation: false,

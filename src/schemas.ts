@@ -100,6 +100,7 @@ export const studyDetailsSchema = z
     isBmi35OrBelow: z.boolean().optional(),
     consentsDrugScreening: z.boolean().optional(),
     acceptsCruiseShipHours: z.boolean().optional(),
+    agreesToInterview: z.boolean().optional(),
     passportNumber: z.string().optional(),
     passportIssueDate: z.string().optional(),
     passportExpiryDate: z.string().optional(),
@@ -201,6 +202,15 @@ export const studyDetailsSchema = z
           "Applicants must be willing and able to work long cruise ship hours to proceed.",
       });
     }
+
+    if (data.agreesToInterview !== true) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["agreesToInterview"],
+        message:
+          "Agreement to attend the required interview is required to proceed.",
+      });
+    }
   });
 
 export const educationFormSchema = z.object({
@@ -257,6 +267,7 @@ export const newApplyInitialValuesSchema = z.object({
   isBmi35OrBelow: z.boolean().optional(),
   consentsDrugScreening: z.boolean().optional(),
   acceptsCruiseShipHours: z.boolean().optional(),
+  agreesToInterview: z.boolean().optional(),
   passportNumber: z.string().optional(),
   passportIssueDate: z.string().optional(),
   passportExpiryDate: z.string().optional(),

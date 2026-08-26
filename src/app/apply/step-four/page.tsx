@@ -182,6 +182,7 @@ export default function StudyDetailsForm() {
       form.setValue("isBmi35OrBelow", undefined);
       form.setValue("consentsDrugScreening", undefined);
       form.setValue("acceptsCruiseShipHours", undefined);
+      form.setValue("agreesToInterview", undefined);
     }
   }, [requiresCruiseScreening, form]);
 
@@ -622,6 +623,55 @@ export default function StudyDetailsForm() {
                                   field.onChange(value === "Yes");
                                   handleChange(
                                     "acceptsCruiseShipHours",
+                                    value === "Yes",
+                                  );
+                                }}
+                                value={getBooleanRadioValue(field.value)}
+                                className="flex flex-col space-y-1"
+                              >
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="Yes" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    Yes
+                                  </FormLabel>
+                                </FormItem>
+                                <FormItem className="flex items-center space-x-3 space-y-0">
+                                  <FormControl>
+                                    <RadioGroupItem value="No" />
+                                  </FormControl>
+                                  <FormLabel className="font-normal">
+                                    No
+                                  </FormLabel>
+                                </FormItem>
+                              </RadioGroup>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="agreesToInterview"
+                        render={({ field }) => (
+                          <FormItem className="col-span-2">
+                            <p className="text-sm text-gray-700 font-medium mb-1">
+                              Please note that, as part of the application
+                              process for this qualification, you must attend
+                              either an in-person interview or an online video
+                              interview.
+                            </p>
+                            <FormLabel>
+                              Do you agree to attend the required interview?
+                            </FormLabel>
+                            <FormControl>
+                              <RadioGroup
+                                onValueChange={(value) => {
+                                  field.onChange(value === "Yes");
+                                  handleChange(
+                                    "agreesToInterview",
                                     value === "Yes",
                                   );
                                 }}
