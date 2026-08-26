@@ -31,8 +31,8 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-// const cruiseShipCourse =
-//   "International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months";
+const cruiseShipCourse =
+  "International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months";
 
 const getAgeFromDateOfBirth = (dateOfBirth?: string) => {
   if (!dateOfBirth) return null;
@@ -115,6 +115,7 @@ export default function StudyDetailsForm() {
   const form = useForm<NewApplyInitialValuesType>({
     resolver: zodResolver(studyDetailsSchema),
     defaultValues: newApplyData,
+    mode: "onChange",
   });
 
   useEffect(() => {
@@ -135,18 +136,18 @@ export default function StudyDetailsForm() {
   const selectedCourse = form.watch("choiceOfCourse");
   const hasPassport = form.watch("hasPassport");
   const calculatedAge = getAgeFromDateOfBirth(newApplyData.dateOfBirth);
-  // const requiresCruiseScreening = selectedCourse === cruiseShipCourse;
-  // const isUnderMinimumAge = calculatedAge !== null && calculatedAge < 20;
+  const requiresCruiseScreening = selectedCourse === cruiseShipCourse;
+  const isUnderMinimumAge = calculatedAge !== null && calculatedAge < 18;
 
   const handleSubmit = (values: NewApplyInitialValuesType) => {
-    // if (requiresCruiseScreening && isUnderMinimumAge) {
-    //   form.setError("isTwentyOrOlder", {
-    //     type: "manual",
-    //     message:
-    //       "The applicant is under 20 years old based on the date of birth and cannot proceed with this programme.",
-    //   });
-    //   return;
-    // }
+    if (requiresCruiseScreening && isUnderMinimumAge) {
+      form.setError("isTwentyOrOlder", {
+        type: "manual",
+        message:
+          "Applicants under 18 years old cannot continue with the International Cruise Ship Culinary Program.",
+      });
+      return;
+    }
 
     updateNewApplyDetails(values);
     router.push("/apply/review");
@@ -154,8 +155,8 @@ export default function StudyDetailsForm() {
 
   const requiresPassport =
     selectedCourse ===
-    "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months";
-  // || selectedCourse === cruiseShipCourse;
+      "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months" ||
+    selectedCourse === cruiseShipCourse;
 
   useEffect(() => {
     if (!needAccommodation) {
@@ -172,17 +173,17 @@ export default function StudyDetailsForm() {
     }
   }, [requiresPassport, form]);
 
-  // useEffect(() => {
-  //   if (!requiresCruiseScreening) {
-  //     form.setValue("isTwentyOrOlder", undefined);
-  //     form.setValue("hasGrade11OrHigher", undefined);
-  //     form.setValue("isSouthAfricanCitizen", undefined);
-  //     form.setValue("hasCriminalRecord", undefined);
-  //     form.setValue("isBmi35OrBelow", undefined);
-  //     form.setValue("consentsDrugScreening", undefined);
-  //     form.setValue("acceptsCruiseShipHours", undefined);
-  //   }
-  // }, [requiresCruiseScreening, form]);
+  useEffect(() => {
+    if (!requiresCruiseScreening) {
+      form.setValue("isTwentyOrOlder", undefined);
+      form.setValue("hasGrade11OrHigher", undefined);
+      form.setValue("isSouthAfricanCitizen", undefined);
+      form.setValue("hasCriminalRecord", undefined);
+      form.setValue("isBmi35OrBelow", undefined);
+      form.setValue("consentsDrugScreening", undefined);
+      form.setValue("acceptsCruiseShipHours", undefined);
+    }
+  }, [requiresCruiseScreening, form]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
@@ -256,7 +257,7 @@ export default function StudyDetailsForm() {
                             Preparation & Culinary Arts - 17 Months
                           </FormLabel>
                         </FormItem>
-                        {/* <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
                             <RadioGroupItem value="International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months" />
                           </FormControl>
@@ -264,7 +265,7 @@ export default function StudyDetailsForm() {
                             International Cruise Ship Culinary Program Diploma:
                             Food Preparation &amp; Culinary Arts - 20 Months
                           </FormLabel>
-                        </FormItem> */}
+                        </FormItem>
                         <FormItem className="flex items-center space-x-3 space-y-0">
                           <FormControl>
                             <RadioGroupItem value="Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years" />
@@ -317,7 +318,7 @@ export default function StudyDetailsForm() {
                     )}
                   />
 
-                  {/* requiresCruiseScreening && calculatedAge !== null && (
+                  {requiresCruiseScreening && calculatedAge !== null && (
                     <div
                       className={`col-span-2 rounded-md border p-4 ${
                         isUnderMinimumAge
@@ -336,14 +337,14 @@ export default function StudyDetailsForm() {
                       </p>
                       {isUnderMinimumAge && (
                         <p className="mt-2 text-sm text-red-700">
-                          Applicants under 20 years old cannot continue with the
+                          Applicants under 18 years old cannot continue with the
                           International Cruise Ship Culinary Program.
                         </p>
                       )}
                     </div>
-                  ) */}
+                  )}
 
-                  {/* requiresCruiseScreening && (
+                  {requiresCruiseScreening && (
                     <>
                       <FormField
                         control={form.control}
@@ -351,7 +352,7 @@ export default function StudyDetailsForm() {
                         render={({ field }) => (
                           <FormItem className="col-span-2">
                             <FormLabel>
-                              Are you 20 years of age or older?
+                              Are you 18 years of age or older?
                             </FormLabel>
                             <FormControl>
                               <RadioGroup
@@ -650,7 +651,7 @@ export default function StudyDetailsForm() {
                         )}
                       />
                     </>
-                  ) */}
+                  )}
                 </>
               )}
 
