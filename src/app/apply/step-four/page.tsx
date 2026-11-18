@@ -276,6 +276,22 @@ export default function StudyDetailsForm() {
                             Test - 03 Years
                           </FormLabel>
                         </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="Food Handler - 02 Months" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Food Handler - 02 Months
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="Kitchen Hand - 3 Months" />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            Kitchen Hand - 03 Months
+                          </FormLabel>
+                        </FormItem>
                       </RadioGroup>
                     </FormControl>
                     <FormMessage />

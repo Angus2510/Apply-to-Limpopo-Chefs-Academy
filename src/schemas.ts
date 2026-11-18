@@ -89,6 +89,8 @@ export const studyDetailsSchema = z
         "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months",
         cruiseShipCourse,
         "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
+        "Food Handler - 02 Months",
+        "Kitchen Hand - 3 Months",
       ])
       .optional(),
     dateOfBirth: z.string().optional(),
@@ -257,6 +259,8 @@ export const newApplyInitialValuesSchema = z.object({
       "International Exchange Program Diploma: Food Preparation & Culinary Arts - 17 Months",
       "International Cruise Ship Culinary Program Diploma: Food Preparation & Culinary Arts - 20 Months",
       "Occupational Grande Chef: Dual Qualification + Trade Test - 03 Years",
+      "Food Handler - 02 Months",
+      "Kitchen Hand - 3 Months",
     ])
     .optional(),
   hasPassport: z.boolean().optional(),
